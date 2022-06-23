@@ -4,18 +4,29 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.Objects;
 
 public class MainStage extends Application {
+    Stage stage = new Stage();
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
+
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("layout/MainScene.fxml")));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setTitle("WhistDemo");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
+    }
+
+    public void showWindow() throws Exception {
+        start(stage);
     }
 
     public static void main(String[] args) {

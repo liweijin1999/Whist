@@ -12,10 +12,11 @@ public class GamingStage extends Application {
     Stage stage=new Stage();
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("layout/GamingScene.fxml")));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setTitle("Whist");
+        primaryStage.setScene(new Scene(root));
+//        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -23,7 +24,7 @@ public class GamingStage extends Application {
         launch(args);
     }
 
-    public void  showWindow() throws Exception {
+    public void showWindow() throws Exception {
         start(stage);
     }
 
