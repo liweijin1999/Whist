@@ -17,16 +17,12 @@ public class MainStage extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("layout/MainScene.fxml")));
         primaryStage.setTitle("WhistDemo");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.show();
-    }
 
-    public void showWindow() throws Exception {
-        start(stage);
     }
 
     public static void main(String[] args) {

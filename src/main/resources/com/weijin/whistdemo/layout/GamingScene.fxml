@@ -219,12 +219,14 @@
                            AnchorPane.topAnchor="396.0"/>
             </children>
         </AnchorPane>
-        <TableView maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="153.0" prefWidth="173.0"
-                   GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6"
-                   GridPane.valignment="CENTER">
+        <TableView fx:id="scoreBoardTableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="110.0"
+                   prefWidth="175.0"
+                   stylesheets="com/weijin/whistdemo/static/css/tableview.css" GridPane.columnSpan="2"
+                   GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
             <columns>
-                <TableColumn prefWidth="85.0" resizable="false" text="You &amp; P3"/>
-                <TableColumn prefWidth="87.0" text="P2 &amp; P4"/>
+                <TableColumn fx:id="youNpartner" editable="false" prefWidth="85.0" resizable="false" sortable="false"
+                             text="You &amp; P3"/>
+                <TableColumn fx:id="opponents" editable="false" prefWidth="85.0" sortable="false" text="P2 &amp; P4"/>
             </columns>
         </TableView>
         <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="48.0" prefWidth="99.0" text="You ( Player 1 )"
@@ -234,7 +236,8 @@
                 <Insets bottom="50.0"/>
             </padding>
         </Label>
-        <Button mnemonicParsing="false" onAction="#click" prefHeight="40.0" prefWidth="119.0" text="OK"
+        <Button fx:id="playButton" mnemonicParsing="false" onAction="#click" prefHeight="40.0" prefWidth="119.0"
+                text="OK"
                 GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.rowSpan="1"
                 GridPane.valignment="CENTER">
             <GridPane.margin>

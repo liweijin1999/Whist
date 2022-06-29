@@ -7,7 +7,6 @@ public class Card {
     private final Rank rank;
     private final String id;
     private boolean isFaceUp = false;
-    private boolean isSelected = false;
     private boolean isPlayed = false;
 
     public Card(Suit suit, Rank rank) {
@@ -41,14 +40,6 @@ public class Card {
 
     public void setFaceUp(boolean faceUp) {
         isFaceUp = faceUp;
-    }
-
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
     }
 
     public boolean isPlayed() {

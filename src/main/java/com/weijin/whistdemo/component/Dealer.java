@@ -6,16 +6,16 @@ import java.util.List;
 public class Dealer {
     public void deal(List<Player> players) {
         int[] rdm = randomCommon();
-        System.out.println(Arrays.toString(rdm));
+//        System.out.println(Arrays.toString(rdm));
         int[] hand = new int[13];
         Card[] handCards = new Card[13];
         for (int i = 0; i < players.size(); i++) {
             System.arraycopy(rdm, i * 13, hand, 0, hand.length);
-            System.out.println(Arrays.toString(hand));
+//            System.out.println(Arrays.toString(hand));
             for (int j = 0; j < hand.length; j++) {
                 handCards[j] = new Card(Suit.getSuit((hand[j] - 1) / 13), Rank.getRank(hand[j] % 13));
             }
-            players.get(i).setInitHand(handCards);
+            players.get(i).setInitHand(List.of(handCards));
         }
     }
 
@@ -65,7 +65,7 @@ public class Dealer {
         List<Player> players = Arrays.asList(p1, p2, p3, p4);
         Dealer dealer = new Dealer();
         dealer.deal(players);
-        Card[] hand = p1.getCurrHand();
+        List<Card> hand = p1.getCurrHand();
         for (Card card : hand) {
             System.out.println(card.getRank() + " " + card.getSuit() + " " + card.getId());
         }

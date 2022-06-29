@@ -1,12 +1,14 @@
 package com.weijin.whistdemo.utils;
 
 import com.weijin.whistdemo.component.Card;
+import com.weijin.whistdemo.component.Deck;
 import com.weijin.whistdemo.component.Rank;
 import com.weijin.whistdemo.component.Suit;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,14 +28,14 @@ public class helper {
         return image;
     }
 
-    public static Card[] sortCards(Card[] cards) {
-        Card[] sortedCards = new Card[cards.length];
+    public static List<Card> sortCards(List<Card> cards) {
+        List<Card> sortedCards = new ArrayList<>(cards);
         int impactFactorI = 10000000, impactFactorJ = 10000000;
-        System.arraycopy(cards, 0, sortedCards, 0, sortedCards.length);
-        System.out.println(sortedCards.length);
-        for (int i = 0; i < sortedCards.length; i++) {
-            for (int j = 0; j < sortedCards.length; j++) {
-                switch (sortedCards[i].getSuit()) {
+//        System.arraycopy(cards, 0, sortedCards, 0, sortedCards.length);
+//        System.out.println(sortedCards.length);
+        for (int i = 0; i < sortedCards.size(); i++) {
+            for (int j = 0; j < sortedCards.size(); j++) {
+                switch (sortedCards.get(i).getSuit()) {
                     case SPADES -> {
                         impactFactorI = 1000;
                     }
@@ -48,7 +50,7 @@ public class helper {
                     }
 
                 }
-                switch (sortedCards[j].getSuit()) {
+                switch (sortedCards.get(j).getSuit()) {
                     case SPADES -> {
                         impactFactorJ = 1000;
                     }
@@ -63,12 +65,12 @@ public class helper {
                     }
 
                 }
-                if (sortedCards[i].getRank().getCardValue() * impactFactorI > sortedCards[j].getRank().getCardValue() * impactFactorJ) {
+                if (sortedCards.get(i).getRank().getCardValue() * impactFactorI > sortedCards.get(j).getRank().getCardValue() * impactFactorJ) {
 //                        System.out.println(sortedCards[i].getRank() + " " + sortedCards[i].getSuit()+"//"+sortedCards[j].getRank() + " " + sortedCards[j].getSuit());
 //                        System.out.println(sortedCards[i].getRank().getCardValue()*impactFactorI + " " + sortedCards[j].getRank().getCardValue()*impactFactorJ);
-                    Card tempCard = sortedCards[i];
-                    sortedCards[i] = sortedCards[j];
-                    sortedCards[j] = tempCard;
+                    Card tempCard = sortedCards.get(i);
+                    sortedCards.set(i, sortedCards.get(j));
+                    sortedCards.set(j, tempCard);
                 }
             }
         }
@@ -141,16 +143,39 @@ public class helper {
     }
 
     public static void main(String[] args) {
-        Card[] cards = new Card[52];
+        List<Card> cards = new ArrayList<>(52);
         for (int i = 0; i < 52; i++) {
-            cards[i] = new Card(Suit.getSuit(i / 13), Rank.getRank(i % 13));
+            cards.set(i, new Card(Suit.getSuit(i / 13), Rank.getRank(i % 13)));
         }
 //            for (int i = 0; i < cards.length; i++) {
 //                System.out.println(cards[i].getRank() + " " + cards[i].getSuit());
 //            }
-        Card[] sortedCards = sortCards(cards);
-        for (int i = 0; i < sortedCards.length; i++) {
-            System.out.println(sortedCards[i].getRank() + " " + sortedCards[i].getSuit());
+        List<Card> sortedCards = sortCards(cards);
+        for (int i = 0; i < sortedCards.size(); i++) {
+            System.out.println(sortedCards.get(i).getRank() + " " + sortedCards.get(i).getSuit());
         }
+    }
+
+    public static int[] randomCommon() {
+        int min = 1;
+        int n = Deck.DECK_SIZE;
+
+        int[] result = new int[n];
+        int count = 0;
+        while (count < n) {
+            int num = (int) (Math.random() * 52) + min;
+            boolean flag = true;
+            for (int j = 0; j < n; j++) {
+                if (num == result[j]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                result[count] = num;
+                count++;
+            }
+        }
+        return result;
     }
 }

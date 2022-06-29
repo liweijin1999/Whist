@@ -16,8 +16,8 @@ public class SettleStageController implements Initializable {
      * Called to initialize a controller after its root element has been
      * completely processed.
      *
-     * @param url  The location used to resolve relative paths for the root object, or
-     *                  <tt>null</tt> if the location is not known.
+     * @param url            The location used to resolve relative paths for the root object, or
+     *                       <tt>null</tt> if the location is not known.
      * @param resourceBundle The resources used to localize the root object, or <tt>null</tt> if
      */
     @Override
@@ -27,11 +27,12 @@ public class SettleStageController implements Initializable {
     }
 
     public void changeWindow() throws Exception {
-        GamingStage gamingStage =new GamingStage();
+        GamingStage gamingStage = new GamingStage();
         gamingStage.showWindow();
 
 
     }
+
     public void click(ActionEvent event) throws Exception {
         System.out.println("Button Clicked!");
         //todo: 获取选择的难度
