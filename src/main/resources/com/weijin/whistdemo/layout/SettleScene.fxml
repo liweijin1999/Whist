@@ -6,13 +6,13 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="settlePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
+            xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <MenuBar layoutY="-1.0" prefHeight="30.0" prefWidth="600.0">
+        <MenuBar prefHeight="30.0" prefWidth="${settlePane.width}">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -31,17 +31,18 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <Button layoutX="235.0" layoutY="317.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="129.0"
+        <Button layoutX="246.0" layoutY="324.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="129.0"
                 text="Next Game"/>
-        <TableView layoutX="78.0" layoutY="68.0" prefHeight="242.0" prefWidth="426.0">
+        <TableView prefHeight="242.0" prefWidth="506.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"
+                   AnchorPane.topAnchor="70.0">
             <columns>
-                <TableColumn prefWidth="75.0" text="C1"/>
-                <TableColumn prefWidth="75.0" text="C2"/>
-                <TableColumn prefWidth="75.0" text="Column X"/>
-                <TableColumn prefWidth="75.0" text="Column X"/>
+                <TableColumn minWidth="93.0" prefWidth="-1.0" text="Game"/>
+                <TableColumn minWidth="135.0" prefWidth="-1.0" text="You &amp; Player3"/>
+                <TableColumn minWidth="135.0" prefWidth="-1.0" text="Player2 &amp; Player4"/>
+                <TableColumn minWidth="135.0" prefWidth="-1.0" text="Winners"/>
             </columns>
         </TableView>
-        <Button layoutX="381.0" layoutY="323.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0"
+        <Button layoutX="391.0" layoutY="330.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0"
                 text="Back to Home"/>
     </children>
-</Pane>
+</AnchorPane>

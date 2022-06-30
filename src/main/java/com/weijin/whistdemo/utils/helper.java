@@ -7,7 +7,7 @@ import com.weijin.whistdemo.component.Suit;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -177,5 +177,33 @@ public class helper {
             }
         }
         return result;
+    }
+
+
+    public class SerialCloneUtils {
+        /**
+         * 使用ObjectStream序列化实现深克隆
+         *
+         * @return Object obj
+         */
+        public static <T extends Serializable> T deepClone(T t) throws CloneNotSupportedException {
+            // 保存对象为字节数组
+            try {
+                ByteArrayOutputStream bout = new ByteArrayOutputStream();
+                try (ObjectOutputStream out = new ObjectOutputStream(bout)) {
+                    out.writeObject(t);
+                }
+
+                // 从字节数组中读取克隆对象
+                try (InputStream bin = new ByteArrayInputStream(bout.toByteArray())) {
+                    ObjectInputStream in = new ObjectInputStream(bin);
+                    return (T) (in.readObject());
+                }
+            } catch (IOException | ClassNotFoundException e) {
+                CloneNotSupportedException cloneNotSupportedException = new CloneNotSupportedException();
+                e.initCause(cloneNotSupportedException);
+                throw cloneNotSupportedException;
+            }
+        }
     }
 }

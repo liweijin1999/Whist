@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +22,7 @@ public class MainStage extends Application {
         primaryStage.setTitle("WhistDemo");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
+//        Slider slider = (Slider) root.lookup("#slider");
         primaryStage.show();
 
     }

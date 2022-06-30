@@ -4,38 +4,37 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class ScoreBoard {
-    public ScoreBoard(String id, String name) {
-        this.setuAndTeammateScore(id);
-        this.setName(name);
+    private StringProperty team;
+    private StringProperty score;
+
+    public ScoreBoard(String teamNames, String Score) {
+        this.setTeam(teamNames);
+        this.setScore(Score);
     }
 
-    private StringProperty uAndTeammateScore;  //也可以在这里直接new
-
-    public void setuAndTeammateScore(String value) {
-        uAndTeammateScoreProperty().set(value);
+    public void setTeam(String team) {
+        teamProperty().set(team);
     }
 
-    public String getuAndTeammateScore() {
-        return uAndTeammateScoreProperty().get();
+    public String getTeam() {
+        return teamProperty().get();
     }
 
-    public StringProperty uAndTeammateScoreProperty() {
-        if (uAndTeammateScore == null) uAndTeammateScore = new SimpleStringProperty(this, "uAndTeammateScore");
-        return uAndTeammateScore;
+    public StringProperty teamProperty() {
+        if (team == null) team = new SimpleStringProperty(this, "team");
+        return team;
     }
 
-    private StringProperty opponentScore;
-
-    public void setName(String value) {
-        nameProperty().set(value);
+    public void setScore(String score) {
+        scoreProperty().set(score);
     }
 
-    public String getName() {
-        return uAndTeammateScoreProperty().get();
+    public String getScore() {
+        return scoreProperty().get();
     }
 
-    public StringProperty nameProperty() {
-        if (opponentScore == null) opponentScore = new SimpleStringProperty(this, "opponentScore");
-        return opponentScore;
+    public StringProperty scoreProperty() {
+        if (score == null) score = new SimpleStringProperty(this, "score");
+        return score;
     }
 }

@@ -21,7 +21,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="986.0" prefWidth="1280.0"
+
+<!-- 自定义控件 （使用sceneBuilder时先注释）-->
+<?import com.weijin.whistdemo.javafxComponents.MyImageView?>
+
+<GridPane fx:id="gamingGridPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="986.0" prefWidth="1280.0"
           stylesheets="com/weijin/whistdemo/static/css/MainStage.css" xmlns="http://javafx.com/javafx/18"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.weijin.whistdemo.GamingStageController">
     <columnConstraints>
@@ -221,13 +225,13 @@
                            AnchorPane.topAnchor="396.0"/>
             </children>
         </AnchorPane>
-        <TableView fx:id="scoreBoardTableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="110.0"
-                   prefWidth="175.0" stylesheets="com/weijin/whistdemo/static/css/tableview.css" GridPane.columnSpan="2"
+        <TableView fx:id="scoreBoardTableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="135.0"
+                   prefWidth="210.0" stylesheets="com/weijin/whistdemo/static/css/tableview.css" GridPane.columnSpan="2"
                    GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
             <columns>
-                <TableColumn fx:id="youNpartner" editable="false" prefWidth="85.0" resizable="false" sortable="false"
-                             text="You &amp; P3"/>
-                <TableColumn fx:id="opponents" editable="false" prefWidth="85.0" sortable="false" text="P2 &amp; P4"/>
+                <TableColumn fx:id="team" editable="false" prefWidth="135.0" resizable="false" sortable="false"
+                             text="Team"/>
+                <TableColumn fx:id="score" editable="false" prefWidth="70.0" sortable="false" text="Score"/>
             </columns>
         </TableView>
         <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="48.0" prefWidth="99.0" text="You ( Player 1 )"
@@ -244,7 +248,29 @@
                 <Insets bottom="50.0"/>
             </GridPane.margin>
         </Button>
-        <!--       <Label layoutX="198.0" layoutY="668.0" prefHeight="26.0" prefWidth="100.0" text="Current Trump:" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="210.0" />-->
+        <AnchorPane fx:id="p1TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="121.0" prefWidth="328.0"
+                    GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6"
+                    GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+            <GridPane.margin>
+                <Insets bottom="25.0"/>
+            </GridPane.margin>
+        </AnchorPane>
+        <AnchorPane fx:id="p2TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="236.0" prefWidth="145.0"
+                    GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="3" GridPane.valignment="CENTER">
+            <GridPane.margin>
+                <Insets left="15.0" top="30.0"/>
+            </GridPane.margin>
+        </AnchorPane>
+        <AnchorPane fx:id="p3TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="92.0" prefWidth="452.0"
+                    GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1"
+                    GridPane.valignment="CENTER"/>
+        <AnchorPane fx:id="p4TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="356.0" prefWidth="141.0"
+                    GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4"
+                    GridPane.rowSpan="3" GridPane.valignment="BOTTOM">
+            <GridPane.margin>
+                <Insets right="15.0"/>
+            </GridPane.margin>
+        </AnchorPane>
         <ToggleButton fx:id="logButton" mnemonicParsing="false" onAction="#showLog" prefHeight="40.0" prefWidth="78.0"
                       text="show log" GridPane.columnIndex="6" GridPane.columnSpan="1" GridPane.halignment="CENTER"
                       GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
@@ -293,18 +319,18 @@
                 <Insets right="40.0"/>
             </padding>
         </VBox>
-        <ImageView fx:id="p3played" fitHeight="142.2" fitWidth="102.9" pickOnBounds="true" preserveRatio="true"
-                   GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3"
-                   GridPane.valignment="CENTER"/>
-        <ImageView fx:id="p2played" fitHeight="142.2" fitWidth="102.9" pickOnBounds="true" preserveRatio="true"
-                   GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4"
-                   GridPane.valignment="CENTER"/>
-        <ImageView fx:id="p1played" fitHeight="142.2" fitWidth="102.9" pickOnBounds="true" preserveRatio="true"
-                   GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5"
-                   GridPane.valignment="CENTER"/>
-        <ImageView fx:id="p4played" fitHeight="142.2" fitWidth="102.9" pickOnBounds="true" preserveRatio="true"
-                   GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4"
-                   GridPane.valignment="CENTER"/>
+        <MyImageView fx:id="p3played" fitHeight="142.2" fitWidth="102.9" pickOnBounds="true" preserveRatio="true"
+                     GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3"
+                     GridPane.valignment="CENTER"/>
+        <MyImageView fx:id="p2played" fitHeight="142.2" fitWidth="102.9" pickOnBounds="true" preserveRatio="true"
+                     GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4"
+                     GridPane.valignment="CENTER"/>
+        <MyImageView fx:id="p1played" fitHeight="142.2" fitWidth="102.9" pickOnBounds="true" preserveRatio="true"
+                     GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5"
+                     GridPane.valignment="CENTER"/>
+        <MyImageView fx:id="p4played" fitHeight="142.2" fitWidth="102.9" pickOnBounds="true" preserveRatio="true"
+                     GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4"
+                     GridPane.valignment="CENTER"/>
         <ScrollPane fx:id="logPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                     minWidth="-Infinity" prefHeight="258.0" prefWidth="383.0" visible="false" GridPane.columnIndex="4"
                     GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.rowSpan="2"
@@ -314,5 +340,14 @@
                           prefHeight="444.0" prefWidth="383.0"/>
             </content>
         </ScrollPane>
+        <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="229.0" GridPane.columnIndex="2"
+              GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+            <children>
+                <Label fx:id="trumpLabel" contentDisplay="CENTER" graphicTextGap="10.0" maxHeight="-Infinity"
+                       maxWidth="-Infinity" prefHeight="53.0" prefWidth="122.0" text="Trump this round: "
+                       textAlignment="CENTER"/>
+                <ImageView fx:id="trumpIv" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"/>
+            </children>
+        </HBox>
     </children>
 </GridPane>

@@ -7,12 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -27,6 +26,7 @@ public class MainStageController implements Initializable {
     public ComboBox difficulty;
     public MenuBar menuBar;
     public Button play;
+    public Slider difficultySlider;
 
 
     public MainStageController() {
@@ -57,23 +57,32 @@ public class MainStageController implements Initializable {
     }
 
     public void click(ActionEvent event) throws Exception {
-//        System.out.println("Button Clicked!");
-        //todo: 获取选择的难度
-        String difficultyStr = getDifficultyLevel();
-//        System.out.println(difficultyStr);
-        if (difficultyStr != null) {
-            GamingStage gamingStage = new GamingStage();
-            gamingStage.showWindow();
-        }
+        Integer difficultyStr = (int) difficultySlider.getValue();
+        GamingStage gamingStage = new GamingStage();
+        gamingStage.showWindow();
     }
 
-    public String getDifficultyLevel() throws Exception {
-        try {
-            return difficulty.getValue().toString();
-        } catch (Exception e) {
-            popups popups = new popups();
-            popups.ErrorPopup("Please select a difficulty level");
+    public int getDifficultyLevel() {
+        return (int) difficultySlider.getValue();
+    }
+
+    public void SliderDrag(DragEvent dragEvent) {
+        System.out.println(difficultySlider.getValue());
+        sliderReset();
+    }
+
+    public void sliderClick(MouseEvent mouseEvent) {
+        System.out.println(difficultySlider.getValue());
+        sliderReset();
+    }
+
+    public void sliderReset() {
+        if (difficultySlider.getValue() <= 1.5) {
+            difficultySlider.setValue(1);
+        } else if (difficultySlider.getValue() < 2.5 && difficultySlider.getValue() > 1.5) {
+            difficultySlider.setValue(2);
+        } else if (difficultySlider.getValue() >= 2.5) {
+            difficultySlider.setValue(3);
         }
-        return null;
     }
 }

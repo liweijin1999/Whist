@@ -6,25 +6,24 @@ import com.weijin.whistdemo.AIstrategy.EasyStrategy;
 import com.weijin.whistdemo.AIstrategy.Strategy;
 import com.weijin.whistdemo.component.*;
 import com.weijin.whistdemo.component.WhistImpl;
+import com.weijin.whistdemo.javafxComponents.MyImageView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.AccessibleAttribute;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 //import static com.weijin.whistdemo.utils.animation.cardPop;
 import static com.weijin.whistdemo.utils.helper.*;
@@ -34,7 +33,7 @@ public class GamingStageController implements Initializable {
 
     public ImageView p1iv1, p1iv2, p1iv3, p1iv4, p1iv5, p1iv6, p1iv7, p1iv8, p1iv9, p1iv10, p1iv11, p1iv12, p1iv13;
     public List<ImageView> p1ivList = new ArrayList<>(13);
-    public ImageView p1played, p2played, p3played, p4played;
+    public MyImageView p1played, p2played, p3played, p4played;
     public ImageView p2iv1, p2iv2, p2iv3, p2iv4, p2iv5, p2iv6, p2iv7, p2iv8, p2iv9, p2iv10, p2iv11, p2iv12, p2iv13;
     public List<ImageView> p2ivList = new ArrayList<>(13);
     public ImageView p3iv1, p3iv2, p3iv3, p3iv4, p3iv5, p3iv6, p3iv7, p3iv8, p3iv9, p3iv10, p3iv11, p3iv12, p3iv13;
@@ -45,14 +44,17 @@ public class GamingStageController implements Initializable {
     @FXML
     public TableView<ScoreBoard> scoreBoardTableView;
     @FXML
-    public TableColumn<ScoreBoard, String> youNpartner;
+    public TableColumn<ScoreBoard, String> team;
     @FXML
-    public TableColumn<ScoreBoard, String> opponents;
+    public TableColumn<ScoreBoard, String> score;
     final ObservableList<ScoreBoard> scoreBoardData = FXCollections.observableArrayList();
     public Button playButton;
     public ToggleButton logButton;
-    public ListView logListView;
+    public ListView<String> logListView;
     public ScrollPane logPane;
+    public GridPane gamingGridPane;
+    public Label trumpLabel;
+    public AnchorPane p1TricksPane, p2TricksPane, p3TricksPane, p4TricksPane;
 
     private HashMap<ImageView, Card> handMap = new HashMap<>(13);
     WhistImpl whist;
@@ -108,7 +110,6 @@ public class GamingStageController implements Initializable {
                             HandIvSetNullAfterThrowCard(playerList.get(1));
                             if (turnIndex == 3) {
                                 refreshPlayedViews();
-//                                endOneRound();
 
 
                             } else {
@@ -139,7 +140,6 @@ public class GamingStageController implements Initializable {
                                 HandIvSetNullAfterThrowCard(playerList.get(2));
                                 if (turnIndex == 3) {
                                     refreshPlayedViews();
-//                                    endOneRound();
 
 
                                 } else {
@@ -173,7 +173,6 @@ public class GamingStageController implements Initializable {
                                 HandIvSetNullAfterThrowCard(playerList.get(3));
                                 if (turnIndex == 3) {
                                     refreshPlayedViews();
-//                                    endOneRound();
 
                                 } else {
                                     playerList.get(0).setTurn(true);
@@ -198,9 +197,8 @@ public class GamingStageController implements Initializable {
     }
 
     public void click(ActionEvent event) throws Exception {
-        int turnIndex = turnList.indexOf(you);
 
-//        System.out.println("Button Clicked!");
+        int turnIndex = turnList.indexOf(you);
         for (ImageView imageView : p1ivList) {
             if (imageView.getY() < 0) {
                 for (ImageView iv : handMap.keySet()) {
@@ -213,6 +211,7 @@ public class GamingStageController implements Initializable {
                             cardDrop(iv);
                             //出牌界面显示出的牌
                             p1played.setImage(CardtoImage(thrownCard));
+
                             if (turnIndex == 0) {
                                 deck.setCurrentLeadSuit(thrownCard.getSuit());
                             }
@@ -229,8 +228,6 @@ public class GamingStageController implements Initializable {
 
                                         if (turnIndex == 3) {
                                             refreshPlayedViews();
-//                                Platform.runLater(this::endOneRound);
-//                                endOneRound();
 
                                         } else {
                                             playerList.get(1).setTurn(true);
@@ -242,24 +239,15 @@ public class GamingStageController implements Initializable {
 
                         } else {
                             Label label = new Label("This card is not allowed! Change one please!");
-
                             Popup popup = new Popup();
-
                             label.setStyle("-fx-background-color: white;");
                             popup.getContent().add(label);
-
-                            label.setMinWidth(100);
-                            label.setMinHeight(80);
-                            popup.setX(730);
-
-                            popup.setY(700);
                             popup.setAutoFix(true);
                             popup.setAutoHide(true);
                             popup.setHideOnEscape(true);
-//                            popup.show(p1iv1.getScene().getWindow());
-//                            System.out.println(.getX()+""+ p1played.getY());
-                            popup.show(p1played, p1played.getX(), p1played.getY());
-
+                            popup.setAnchorX(p1played.getLayoutX() + p1played.getX() + 180);
+                            popup.setAnchorY(p1played.getLayoutY() + p1played.getY() + 200);
+                            popup.show(gamingGridPane.getScene().getWindow());
                         }
                     }
                 }
@@ -269,15 +257,17 @@ public class GamingStageController implements Initializable {
     }
 
     public void initScoreBoardTable() {
-        youNpartner.setCellValueFactory(cellData -> cellData.getValue().uAndTeammateScoreProperty());
-        opponents.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        team.setCellValueFactory(cellData -> cellData.getValue().teamProperty());
+        score.setCellValueFactory(cellData -> cellData.getValue().scoreProperty());
 
         //绑定数据到TableView
         scoreBoardTableView.setItems(scoreBoardData);
-        ScoreBoard scoreBoard = new ScoreBoard("0", "0");
+        ScoreBoard scoreBoard = new ScoreBoard("You & " + playerList.get(2).getId(), "0");
+        ScoreBoard sc2 = new ScoreBoard(playerList.get(1).getId() + " & " + playerList.get(3).getId(), "0");
         //添加数据到scoreBoard，TableView会自动更新
         scoreBoardData.add(scoreBoard);
-//        removeScrollBar(scoreBoardTableView);
+        scoreBoardData.add(sc2);
+//        scoreBoardData.get(0).setName("1");
     }
 
     public void initCardViews() {
@@ -309,7 +299,11 @@ public class GamingStageController implements Initializable {
             @Override
             public void run() {
                 Platform.runLater(() -> {
-                            endOneRound();
+                            try {
+                                endOneRound();
+                            } catch (CloneNotSupportedException e) {
+                                throw new RuntimeException(e);
+                            }
                             //todo 添加tricks的动画以及图层
                             p1played.imageProperty().set(null);
                             p2played.imageProperty().set(null);
@@ -435,13 +429,47 @@ public class GamingStageController implements Initializable {
         return AIcard;
     }
 
-    public void endOneRound() {
+    public void endOneRound() throws CloneNotSupportedException {
         HashMap<Player, Card> biggestCard = deck.getBiggestThisRound();
         for (Player winner : biggestCard.keySet()) {
             logger.add(winner.getId() + " wins this round with " + biggestCard.get(winner).getSuit() + " " + biggestCard.get(winner).getRank());
             logger.add("-------------------------   Round " + round++ + "   -------------------------");
             System.out.println(winner.getId() + " biggest: " + biggestCard.get(winner).getSuit() + " " + biggestCard.get(winner).getRank());
             winner.addTrick(biggestCard.get(winner));
+            if (playerList.get(0).equals(winner)) {
+                MyImageView trickIv = (MyImageView) p1played.clone();
+                trickIv.setFitWidth(10.29 * 5);
+                trickIv.setFitHeight(14.22 * 5);
+                System.out.println(trickIv.translateXProperty());
+                p1TricksPane.setLeftAnchor(trickIv, 0.0 + (10.29 * 3 * winner.getTricks().size() - 1));
+                p1TricksPane.setBottomAnchor(trickIv, 0.0);
+                p1TricksPane.getChildren().add(trickIv);
+            } else if (playerList.get(1).equals(winner)) {
+                MyImageView trickIv = (MyImageView) p1played.clone();
+                trickIv.setFitWidth(10.29 * 5);
+                trickIv.setFitHeight(14.22 * 5);
+                System.out.println(trickIv.translateXProperty());
+                p2TricksPane.setLeftAnchor(trickIv, 0.0 + (10.29 * 3 * winner.getTricks().size() - 1));
+                p2TricksPane.setTopAnchor(trickIv, 0.0);
+                p2TricksPane.getChildren().add(trickIv);
+            } else if (playerList.get(2).equals(winner)) {
+                MyImageView trickIv = (MyImageView) p1played.clone();
+                trickIv.setFitWidth(10.29 * 5);
+                trickIv.setFitHeight(14.22 * 5);
+                System.out.println(trickIv.translateXProperty());
+                p3TricksPane.setLeftAnchor(trickIv, 0.0 + (10.29 * 3 * winner.getTricks().size() - 1));
+                p3TricksPane.setBottomAnchor(trickIv, 0.0);
+                p3TricksPane.getChildren().add(trickIv);
+            } else if (playerList.get(3).equals(winner)) {
+                MyImageView trickIv = (MyImageView) p1played.clone();
+                trickIv.setFitWidth(10.29 * 5);
+                trickIv.setFitHeight(14.22 * 5);
+                System.out.println(trickIv.translateXProperty());
+                p4TricksPane.setLeftAnchor(trickIv, 0.0 + (10.29 * 3 * winner.getTricks().size() - 1));
+                p4TricksPane.setTopAnchor(trickIv, 0.0);
+                p4TricksPane.getChildren().add(trickIv);
+            }
+
             if (!deck.isDeckEmpty()) {
                 System.out.println("deck not empty" + deck.cardsLeftOnDeck);
                 System.out.println("winner: " + winner.getId() + " " + playerList.indexOf(winner));
@@ -450,6 +478,10 @@ public class GamingStageController implements Initializable {
                 System.out.println("new turnList: " + turnList.get(0).getId() + " " + turnList.get(1).getId() + " " + turnList.get(2).getId() + " " + turnList.get(3).getId());
                 System.out.println("new order:" + turnList.get(0).isTurn() + " " + turnList.get(1).isTurn() + " " + turnList.get(2).isTurn() + " " + turnList.get(3).isTurn());
             } else {
+                int uAndTeammateScore = playerList.get(0).getTricks().size() + playerList.get(2).getTricks().size();
+                int opponentScore = playerList.get(1).getTricks().size() + playerList.get(3).getTricks().size();
+                scoreBoardData.get(0).setScore(String.valueOf(uAndTeammateScore));
+                scoreBoardData.get(1).setScore(String.valueOf(opponentScore));
                 SettleStage settleStage = new SettleStage();
                 try {
                     settleStage.showWindow();
