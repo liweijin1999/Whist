@@ -9,7 +9,7 @@ public class WhistImpl extends AbstractWhist {
     public List<Player> playerList = new ArrayList<>(4);
     public Integer deckRound = 0;
     ObservableList<SettleScoreBoard> scoreBoardData = FXCollections.observableArrayList();
-
+    private Integer difficulty;
     public ObservableList<SettleScoreBoard> getScoreBoardData() {
         return scoreBoardData;
     }
@@ -32,5 +32,17 @@ public class WhistImpl extends AbstractWhist {
 
     public void addDeckRound() {
         deckRound++;
+    }
+
+    public void setScoreBoardData(ObservableList<SettleScoreBoard> scoreBoardData) {
+        this.scoreBoardData = scoreBoardData;
+    }
+
+    public Integer getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Integer difficulty) {
+        this.difficulty = difficulty;
     }
 }

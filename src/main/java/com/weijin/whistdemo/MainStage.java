@@ -5,8 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.net.URL;
 import java.util.Objects;
 
 public class MainStage extends Application {
@@ -15,7 +13,7 @@ public class MainStage extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("layout/MainScene.fxml")));
-        primaryStage.setTitle("WhistDemo");
+        primaryStage.setTitle("WhistDemo (beta1.0)");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.show();

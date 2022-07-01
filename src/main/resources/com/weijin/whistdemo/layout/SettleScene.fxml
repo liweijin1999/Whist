@@ -15,12 +15,12 @@
     <children>
         <MenuBar prefHeight="30.0" prefWidth="${settlePane.width}">
             <Menu mnemonicParsing="false" text="Menu">
-                <MenuItem mnemonicParsing="false" onAction="#click" text="New Game"/>
-                <MenuItem mnemonicParsing="false" onAction="#click" text="Exit"/>
+                <MenuItem mnemonicParsing="false" onAction="#newGameClick" text="New Game"/>
+                <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit"/>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
-                <MenuItem mnemonicParsing="false" text="Learn Rules"/>
-                <MenuItem mnemonicParsing="false" text="About"/>
+                <MenuItem mnemonicParsing="false" onAction="#showRules" text="Learn Rules"/>
+                <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About"/>
             </Menu>
         </MenuBar>
 
@@ -34,8 +34,9 @@
                 <TableColumn fx:id="winners" minWidth="135.0" prefWidth="-1.0" text="Winners"/>
             </columns>
         </TableView>
-        <Button fx:id="nextClick" layoutX="280.0" layoutY="330.0" mnemonicParsing="false" prefHeight="${toHome.height}"
-                prefWidth="${toHome.width}"
+        <Button fx:id="nextClick" layoutX="280.0" layoutY="330.0" mnemonicParsing="false"
+                prefHeight="${toHomeClick.height}"
+                prefWidth="${toHomeClick.width}"
                 text="Next Game" onAction="#nextClick"/>
         <Button fx:id="toHomeClick" layoutX="420.0" layoutY="330.0" mnemonicParsing="false" prefHeight="50.0"
                 prefWidth="130.0"

@@ -71,13 +71,27 @@ public class Deck {
     public HashMap<Player, Card> getBiggestThisRound() {
         HashMap<Player, Card> biggestThisRound = new HashMap<Player, Card>();
         int max = 0;
+        boolean hasTrump = false;
+        for (Player player : thisRoundCards.keySet()) {
+            if (thisRoundCards.get(player).getSuit() == this.currentTrump) {
+                hasTrump = true;
+            }
+        }
         for (Player player : thisRoundCards.keySet()) {
             int value = 0;
             Card card = thisRoundCards.get(player);
-            if (card.getSuit() == this.currentTrump) {
-                value = card.getRank().getCardValue() * 100;
+            if (hasTrump) {
+                if (card.getSuit() == this.currentTrump) {
+                    value = card.getRank().getCardValue() * 100;
+                } else {
+                    value = card.getRank().getCardValue();
+                }
             } else {
-                value = card.getRank().getCardValue();
+                if (card.getSuit() == this.currentLeadSuit) {
+                    value = card.getRank().getCardValue() * 100;
+                } else {
+                    value = card.getRank().getCardValue();
+                }
             }
             if (value > max) {
                 max = value;

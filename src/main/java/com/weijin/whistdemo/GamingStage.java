@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 
 public class GamingStage extends Application {
     Stage stage = new Stage();
+    WhistImpl whist;
+    Player you;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -18,31 +20,28 @@ public class GamingStage extends Application {
         Parent root = loader.load();
         loader.setRoot(this);
         GamingStageController target = loader.getController();
-        WhistImpl whist = new WhistImpl();
-        Player you = new Player();
-        you.setId("player1 (you)");
-        whist.loadPlayers(you);
         target.initController(whist);
-        primaryStage.setTitle("Whist");
+        primaryStage.setTitle("WhistDemo (beta1.0)");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
         primaryStage.show();
-//        you.psc.addPropertyChangeListener("setTurn_pro", new PropertyChangeListener() {
-//            @Override
-//            public void propertyChange(PropertyChangeEvent evt) {
-//                System.out.println(evt.getOldValue());
-//                System.out.println(evt.getNewValue());
-////                System.out.println(evt.getSource().getClass());
-//            }
-//        });
-
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    public void showWindow() throws Exception {
+    public void mainToShowWindow(Integer difficultyInt) throws Exception {
+        whist = new WhistImpl();
+        you = new Player();
+        you.setId("player1 (you)");
+        whist.loadPlayers(you);
+        whist.setDifficulty(difficultyInt);
+        start(stage);
+    }
+
+    public void SettlementToShowWindow(WhistImpl whistImpl) throws Exception {
+        whist = whistImpl;
         start(stage);
     }
 

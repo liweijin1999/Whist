@@ -1,32 +1,26 @@
 package com.weijin.whistdemo.controllers;
 
+import com.weijin.whistdemo.AboutStage;
 import com.weijin.whistdemo.GamingStage;
-import com.weijin.whistdemo.utils.popups;
+import com.weijin.whistdemo.RuleStage;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 public class MainStageController implements Initializable {
-
-    public ComboBox difficulty;
+    @FXML
     public MenuBar menuBar;
-    public Button play;
+    @FXML
+    public Button playBtn;
+    @FXML
     public Slider difficultySlider;
 
 
@@ -47,35 +41,23 @@ public class MainStageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // TODO Auto-generated method stub
 
-
-    }
-
-    public void changeWindow() throws Exception {
-        GamingStage gamingStage = new GamingStage();
-        gamingStage.showWindow();
-
-
     }
 
     public void click(ActionEvent event) throws Exception {
-        Integer difficultyStr = (int) difficultySlider.getValue();
+        Integer difficultyInt = (int) difficultySlider.getValue();
         GamingStage gamingStage = new GamingStage();
-        Stage stage = (Stage) play.getScene().getWindow();
+        Stage stage = (Stage) playBtn.getScene().getWindow();
         stage.close();
-        gamingStage.showWindow();
-    }
-
-    public int getDifficultyLevel() {
-        return (int) difficultySlider.getValue();
+        gamingStage.mainToShowWindow(difficultyInt);
     }
 
     public void SliderDrag(DragEvent dragEvent) {
-        System.out.println(difficultySlider.getValue());
+//        System.out.println(difficultySlider.getValue());
         sliderReset();
     }
 
     public void sliderClick(MouseEvent mouseEvent) {
-        System.out.println(difficultySlider.getValue());
+//        System.out.println(difficultySlider.getValue());
         sliderReset();
     }
 
@@ -91,5 +73,15 @@ public class MainStageController implements Initializable {
 
     public void exit(ActionEvent actionEvent) {
         Platform.exit();
+    }
+
+    public void showRules(ActionEvent actionEvent) throws Exception {
+        RuleStage ruleStage = new RuleStage();
+        ruleStage.showWindow();
+    }
+
+    public void showAbout(ActionEvent actionEvent) throws Exception {
+        AboutStage aboutStage = new AboutStage();
+        aboutStage.showWindow();
     }
 }
