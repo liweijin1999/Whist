@@ -27,7 +27,7 @@
 
 <GridPane fx:id="gamingGridPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="986.0" prefWidth="1280.0"
           stylesheets="com/weijin/whistdemo/static/css/MainStage.css" xmlns="http://javafx.com/javafx/18"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.weijin.whistdemo.GamingStageController">
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.weijin.whistdemo.controllers.GamingStageController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="130.0" minWidth="130.0" prefWidth="130.0"/>
@@ -340,13 +340,14 @@
                           prefHeight="444.0" prefWidth="383.0"/>
             </content>
         </ScrollPane>
-        <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="229.0" GridPane.columnIndex="2"
+        <HBox fx:id="trumpHBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="229.0"
+              GridPane.columnIndex="2"
               GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
             <children>
-                <Label fx:id="trumpLabel" contentDisplay="CENTER" graphicTextGap="10.0" maxHeight="-Infinity"
-                       maxWidth="-Infinity" prefHeight="53.0" prefWidth="122.0" text="Trump this round: "
+                <Label fx:id="trumpLabel" contentDisplay="CENTER" maxHeight="-Infinity"
+                       maxWidth="-Infinity" prefHeight="70.0" prefWidth="130.0" text="Trump this round: "
                        textAlignment="CENTER"/>
-                <ImageView fx:id="trumpIv" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"/>
+                <ImageView fx:id="trumpIv" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true"/>
             </children>
         </HBox>
     </children>

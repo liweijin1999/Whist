@@ -1,11 +1,11 @@
-package com.weijin.whistdemo;
+package com.weijin.whistdemo.model;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class ScoreBoard {
-    private StringProperty team;
-    private StringProperty score;
+    private StringProperty team = new SimpleStringProperty();
+    private StringProperty score = new SimpleStringProperty();
 
     public ScoreBoard(String teamNames, String Score) {
         this.setTeam(teamNames);

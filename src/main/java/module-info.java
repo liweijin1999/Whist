@@ -12,4 +12,10 @@ module com.weijin.whistdemo {
 
     opens com.weijin.whistdemo.javafxComponents to javafx.fxml;
     exports com.weijin.whistdemo.javafxComponents;
+    exports com.weijin.whistdemo.controllers;
+    opens com.weijin.whistdemo.controllers to javafx.fxml;
+    exports com.weijin.whistdemo.model;
+    opens com.weijin.whistdemo.model to javafx.fxml;
+
+
 }

@@ -16,11 +16,11 @@
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="400.0" prefWidth="600.0" stylesheets="com/weijin/whistdemo/static/css/MainStage.css"
       xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.weijin.whistdemo.MainStageController">
+      fx:controller="com.weijin.whistdemo.controllers.MainStageController">
     <MenuBar fx:id="menuBar" layoutY="-1.0" prefHeight="30.0" prefWidth="600.0">
         <Menu mnemonicParsing="false" text="Menu">
             <MenuItem mnemonicParsing="false" onAction="#click" text="New Game"/>
-            <MenuItem mnemonicParsing="false" onAction="#click" text="Exit"/>
+            <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
             <MenuItem mnemonicParsing="false" text="Learn Rules"/>
@@ -28,7 +28,7 @@
         </Menu>
     </MenuBar>
     <Button fx:id="play" layoutX="${mainPane.width/2-play.prefWidth/2}" layoutY="328.0" mnemonicParsing="false"
-            onAction="#click" prefHeight="51.0" prefWidth="129.0" text="PLAY">
+            onAction="#click" prefHeight="50.0" prefWidth="130.0" text="PLAY">
         <tooltip>
             <Tooltip text="Start"/>
         </tooltip>

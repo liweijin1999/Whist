@@ -1,17 +1,13 @@
 package com.weijin.whistdemo;
 
-import com.weijin.whistdemo.component.Player;
-import com.weijin.whistdemo.component.WhistImpl;
+import com.weijin.whistdemo.model.Player;
+import com.weijin.whistdemo.model.WhistImpl;
+import com.weijin.whistdemo.controllers.GamingStageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.List;
 
 public class GamingStage extends Application {
     Stage stage = new Stage();

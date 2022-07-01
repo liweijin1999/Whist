@@ -1,5 +1,6 @@
-package com.weijin.whistdemo;
+package com.weijin.whistdemo.controllers;
 
+import com.weijin.whistdemo.GamingStage;
 import com.weijin.whistdemo.utils.popups;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -59,6 +60,8 @@ public class MainStageController implements Initializable {
     public void click(ActionEvent event) throws Exception {
         Integer difficultyStr = (int) difficultySlider.getValue();
         GamingStage gamingStage = new GamingStage();
+        Stage stage = (Stage) play.getScene().getWindow();
+        stage.close();
         gamingStage.showWindow();
     }
 
@@ -84,5 +87,9 @@ public class MainStageController implements Initializable {
         } else if (difficultySlider.getValue() >= 2.5) {
             difficultySlider.setValue(3);
         }
+    }
+
+    public void exit(ActionEvent actionEvent) {
+        Platform.exit();
     }
 }

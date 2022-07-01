@@ -1,4 +1,4 @@
-package com.weijin.whistdemo.component;
+package com.weijin.whistdemo.model;
 
 import java.util.List;
 

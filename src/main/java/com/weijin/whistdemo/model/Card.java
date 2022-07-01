@@ -1,6 +1,4 @@
-package com.weijin.whistdemo.component;
-
-import javafx.scene.image.Image;
+package com.weijin.whistdemo.model;
 
 public class Card {
     private final Suit suit;

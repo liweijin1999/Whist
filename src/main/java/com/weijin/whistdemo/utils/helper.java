@@ -1,9 +1,8 @@
 package com.weijin.whistdemo.utils;
 
-import com.weijin.whistdemo.component.Card;
-import com.weijin.whistdemo.component.Deck;
-import com.weijin.whistdemo.component.Rank;
-import com.weijin.whistdemo.component.Suit;
+import com.weijin.whistdemo.model.Card;
+import com.weijin.whistdemo.model.Rank;
+import com.weijin.whistdemo.model.Suit;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -13,19 +12,31 @@ import java.util.HashMap;
 import java.util.List;
 
 public class helper {
-    static final String FIXED_URL = "src/main/resources/com/weijin/whistdemo/static/pictures/poker_imgs/";
+    static final String FIXED_POKER_IMG_URL = "src/main/resources/com/weijin/whistdemo/static/pictures/poker_imgs/";
+    static final String FIXED_SUIT_IMG_URL = "src/main/resources/com/weijin/whistdemo/static/pictures/suit_icons/";
     static final String POSTFIX = ".gif";
 
-    public static Image CardtoImage(Card card) {
+    public static Image CardToImage(Card card) {
         File file;
         if (card == null) {
-            file = new File(FIXED_URL + "back" + POSTFIX);
+            file = new File(FIXED_POKER_IMG_URL + "back" + POSTFIX);
         } else {
-            file = new File(FIXED_URL + card.getId() + POSTFIX);
+            file = new File(FIXED_POKER_IMG_URL + card.getId() + POSTFIX);
         }
         String path = file.toURI().toString();
-        Image image = new Image(path);
-        return image;
+        return new Image(path);
+    }
+
+    public static Image SuitToImage(Suit suit) {
+        File file;
+        if (suit == null) {
+            return null;
+        } else {
+            file = new File(FIXED_SUIT_IMG_URL + suit.toString().toLowerCase() + POSTFIX);
+        }
+        String path = file.toURI().toString();
+        System.out.println(path);
+        return new Image(path);
     }
 
     public static List<Card> sortCards(List<Card> cards) {
@@ -88,7 +99,7 @@ public class helper {
 
         if (playedIVindex < 6) {
             for (int i = playedIVindex - 1; i >= leftBound; i--) {
-                ivList.get(i + 1).setImage(CardtoImage(handMap.get(ivList.get(i))));
+                ivList.get(i + 1).setImage(CardToImage(handMap.get(ivList.get(i))));
                 handMap.put(ivList.get(i + 1), handMap.get(ivList.get(i)));
             }
             ivList.get(leftBound).setImage(null);
@@ -143,6 +154,7 @@ public class helper {
     }
 
     public static void main(String[] args) {
+        SuitToImage(Suit.SPADES);
         List<Card> cards = new ArrayList<>(52);
         for (int i = 0; i < 52; i++) {
             cards.set(i, new Card(Suit.getSuit(i / 13), Rank.getRank(i % 13)));
@@ -156,31 +168,7 @@ public class helper {
         }
     }
 
-    public static int[] randomCommon() {
-        int min = 1;
-        int n = Deck.DECK_SIZE;
-
-        int[] result = new int[n];
-        int count = 0;
-        while (count < n) {
-            int num = (int) (Math.random() * 52) + min;
-            boolean flag = true;
-            for (int j = 0; j < n; j++) {
-                if (num == result[j]) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag) {
-                result[count] = num;
-                count++;
-            }
-        }
-        return result;
-    }
-
-
-    public class SerialCloneUtils {
+    public static class SerialCloneUtils {
         /**
          * 使用ObjectStream序列化实现深克隆
          *

@@ -1,6 +1,9 @@
 package com.weijin.whistdemo.AIstrategy;
 
-import com.weijin.whistdemo.component.*;
+import com.weijin.whistdemo.model.AbstractWhist;
+import com.weijin.whistdemo.model.Card;
+import com.weijin.whistdemo.model.Deck;
+import com.weijin.whistdemo.model.Player;
 
 public class EasyStrategy implements Strategy {
     // very simple strategy: random strategy

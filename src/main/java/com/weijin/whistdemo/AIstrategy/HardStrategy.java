@@ -1,6 +1,6 @@
 package com.weijin.whistdemo.AIstrategy;
 
-import com.weijin.whistdemo.component.*;
+import com.weijin.whistdemo.model.*;
 
 public class HardStrategy implements Strategy {
     @Override

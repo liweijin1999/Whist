@@ -1,4 +1,4 @@
-package com.weijin.whistdemo.component;
+package com.weijin.whistdemo.model;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;

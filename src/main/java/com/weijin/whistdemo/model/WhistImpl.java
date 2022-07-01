@@ -1,11 +1,18 @@
-package com.weijin.whistdemo.component;
+package com.weijin.whistdemo.model;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.*;
 
 public class WhistImpl extends AbstractWhist {
     public List<Player> playerList = new ArrayList<>(4);
-    private Deck currDeck;
-    private HashMap<String, Integer> scoreMap = new HashMap<>();
+    public Integer deckRound = 0;
+    ObservableList<SettleScoreBoard> scoreBoardData = FXCollections.observableArrayList();
+
+    public ObservableList<SettleScoreBoard> getScoreBoardData() {
+        return scoreBoardData;
+    }
 
     @Override
     public List<Player> loadPlayers(Player you) {
@@ -21,5 +28,9 @@ public class WhistImpl extends AbstractWhist {
 
     public List<Player> getPlayerList() {
         return playerList;
+    }
+
+    public void addDeckRound() {
+        deckRound++;
     }
 }

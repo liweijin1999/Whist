@@ -10,39 +10,35 @@
 
 <AnchorPane fx:id="settlePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18"
-            xmlns:fx="http://javafx.com/fxml/1">
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.weijin.whistdemo.controllers.SettleStageController">
     <children>
         <MenuBar prefHeight="30.0" prefWidth="${settlePane.width}">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Close"/>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Option">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete"/>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About"/>
-                    </items>
-                </Menu>
-            </menus>
+            <Menu mnemonicParsing="false" text="Menu">
+                <MenuItem mnemonicParsing="false" onAction="#click" text="New Game"/>
+                <MenuItem mnemonicParsing="false" onAction="#click" text="Exit"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem mnemonicParsing="false" text="Learn Rules"/>
+                <MenuItem mnemonicParsing="false" text="About"/>
+            </Menu>
         </MenuBar>
-        <Button layoutX="246.0" layoutY="324.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="129.0"
-                text="Next Game"/>
-        <TableView prefHeight="242.0" prefWidth="506.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"
+
+        <TableView fx:id="scoreBoardTable" prefHeight="242.0" prefWidth="506.0" AnchorPane.leftAnchor="50.0"
+                   AnchorPane.rightAnchor="50.0"
                    AnchorPane.topAnchor="70.0">
             <columns>
-                <TableColumn minWidth="93.0" prefWidth="-1.0" text="Game"/>
-                <TableColumn minWidth="135.0" prefWidth="-1.0" text="You &amp; Player3"/>
-                <TableColumn minWidth="135.0" prefWidth="-1.0" text="Player2 &amp; Player4"/>
-                <TableColumn minWidth="135.0" prefWidth="-1.0" text="Winners"/>
+                <TableColumn fx:id="game" minWidth="93.0" prefWidth="-1.0" text="Game"/>
+                <TableColumn fx:id="team1" minWidth="135.0" prefWidth="-1.0" text="You &amp; Player3"/>
+                <TableColumn fx:id="team2" minWidth="135.0" prefWidth="-1.0" text="Player2 &amp; Player4"/>
+                <TableColumn fx:id="winners" minWidth="135.0" prefWidth="-1.0" text="Winners"/>
             </columns>
         </TableView>
-        <Button layoutX="391.0" layoutY="330.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="123.0"
-                text="Back to Home"/>
+        <Button fx:id="nextClick" layoutX="280.0" layoutY="330.0" mnemonicParsing="false" prefHeight="${toHome.height}"
+                prefWidth="${toHome.width}"
+                text="Next Game" onAction="#nextClick"/>
+        <Button fx:id="toHomeClick" layoutX="420.0" layoutY="330.0" mnemonicParsing="false" prefHeight="50.0"
+                prefWidth="130.0"
+                text="Back to Home" onAction="#homeClick"/>
     </children>
 </AnchorPane>

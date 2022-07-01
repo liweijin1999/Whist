@@ -1,4 +1,4 @@
-package com.weijin.whistdemo.component;
+package com.weijin.whistdemo.model;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -47,14 +47,9 @@ public class Deck {
         this.currentTrump = currentTrump;
     }
 
-    public void setCurrentTrumpByRound(int round) {
-        switch (round % 5) {
-            case 0 -> this.currentTrump = null;
-            case 1 -> this.currentTrump = this.trumpList.get(0);
-            case 2 -> this.currentTrump = this.trumpList.get(1);
-            case 3 -> this.currentTrump = this.trumpList.get(2);
-            case 4 -> this.currentTrump = this.trumpList.get(3);
-        }
+    public void setCurrentTrumpByRound(int deckRound) {
+        if (deckRound % 5 == 0) this.currentTrump = null;
+        else this.currentTrump = trumpList.get(deckRound % 5 - 1);
     }
 
     public Suit getCurrentLeadSuit() {
@@ -71,14 +66,6 @@ public class Deck {
 
     public void addThisRoundCard(Player player, Card thisRoundCard) {
         this.thisRoundCards.put(player, thisRoundCard);
-    }
-
-    public int getCardsLeftOnDeck() {
-        return cardsLeftOnDeck;
-    }
-
-    public void setCardsLeftOnDeck(int cardsLeftOnDeck) {
-        this.cardsLeftOnDeck = cardsLeftOnDeck;
     }
 
     public HashMap<Player, Card> getBiggestThisRound() {
@@ -134,13 +121,10 @@ public class Deck {
         }
     }
 
-    public void initNewDeckTrump() {
-        this.currentTrump = this.trumpList.get(0);
-    }
 
-    public void initNewDeck() {
+    public void initNewDeck(int deckRound) {
         initNewDeckTurn();
-        initNewDeckTrump();
+        setCurrentTrumpByRound(deckRound);
     }
 
     public boolean isAllowed(Player player, Card card, Deck deck) {

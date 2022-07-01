@@ -1,4 +1,4 @@
-package com.weijin.whistdemo.component;
+package com.weijin.whistdemo.model;
 
 public enum Suit {
     CLUBS(2), DIAMONDS(3), HEARTS(1), SPADES(0);
