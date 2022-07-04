@@ -10,6 +10,7 @@ import com.weijin.whistdemo.RuleStage;
 import com.weijin.whistdemo.model.*;
 import com.weijin.whistdemo.SettleStage;
 import com.weijin.whistdemo.javafxComponents.MyImageView;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,12 +18,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -60,6 +67,10 @@ public class GamingStageController implements Initializable {
     public AnchorPane p1TricksPane, p2TricksPane, p3TricksPane, p4TricksPane;
     public ImageView trumpIv;
     public Tooltip p1Info, p2Info, p3Info, p4Info;
+    public Label trumpSuitIcon;
+    public AnchorPane p1handPane;
+    public ImageView avatar2, avatar3, avatar4;
+
 
     private HashMap<ImageView, Card> handMap = new HashMap<>(13);
     WhistImpl whist;
@@ -88,10 +99,20 @@ public class GamingStageController implements Initializable {
         initScoreBoardTable();
         whist.addDeckRound();
         deck.initNewDeck(whist.deckRound);
+        //测试第n局
 //        deck.initNewDeck(5);
         if (deck.getCurrentTrump() == null) {
             trumpLabel.setText("No Trump This Round");
+            trumpSuitIcon.setText("");
         } else {
+            trumpLabel.setText("Trump This Round:  ");
+            trumpSuitIcon.setText(suitToSymbol(deck.getCurrentTrump()));
+            switch (deck.getCurrentTrump()) {
+                case SPADES -> trumpSuitIcon.setStyle("-fx-text-fill: black;-fx-font-size: 16;");
+                case HEARTS -> trumpSuitIcon.setStyle("-fx-text-fill: red;-fx-font-size: 16;");
+                case DIAMONDS -> trumpSuitIcon.setStyle("-fx-text-fill: red;-fx-font-size: 16;");
+                case CLUBS -> trumpSuitIcon.setStyle("-fx-text-fill: black;-fx-font-size: 16;");
+            }
             trumpIv.setImage(SuitToImage(deck.getCurrentTrump()));
         }
         turnList = deck.getTurnList();
@@ -107,7 +128,7 @@ public class GamingStageController implements Initializable {
             if (player.psc.getPropertyChangeListeners().length > 0) {
                 player.psc.removePropertyChangeListener(player.psc.getPropertyChangeListeners()[0]);
             }
-            player.setTricks(null);
+            player.setTricks(new ArrayList<>());
         }
         playerList.get(0).psc.addPropertyChangeListener("setTurn_pro", evt -> playButton.setVisible((Boolean) evt.getNewValue()));
 //        System.out.println(playerList.get(0).psc.getPropertyChangeListeners().length);
@@ -129,6 +150,7 @@ public class GamingStageController implements Initializable {
                                 refreshPlayedViews();
                             } else {
                                 playerList.get(2).setTurn(true);
+                                setEffectByTurn(2);
                             }
                         });
                     }
@@ -154,6 +176,7 @@ public class GamingStageController implements Initializable {
                                     refreshPlayedViews();
                                 } else {
                                     playerList.get(3).setTurn(true);
+                                    setEffectByTurn(3);
                                 }
                             });
                         }
@@ -178,6 +201,7 @@ public class GamingStageController implements Initializable {
                                 refreshPlayedViews();
                             } else {
                                 playerList.get(0).setTurn(true);
+                                setEffectByTurn(0);
                             }
                         });
                     }
@@ -186,6 +210,7 @@ public class GamingStageController implements Initializable {
         });
         logger.add("-------------------------   Round " + round++ + "   -------------------------");
         turnList.get(0).setTurn(true);
+        setEffectByTurn(playerList.indexOf(turnList.get(0)));
         for (Player p : turnList) {
             System.out.println(p.getId() + "start");
             break;
@@ -195,8 +220,10 @@ public class GamingStageController implements Initializable {
 
     public void click(ActionEvent event) {
         int turnIndex = turnList.indexOf(you);
+        int isSelect = 0;
         for (ImageView imageView : p1ivList) {
             if (imageView.getY() < 0) {
+                isSelect = 1;
                 for (ImageView iv : handMap.keySet()) {
                     if (imageView == iv) {
                         System.out.println(handMap.get(iv).getId());
@@ -210,6 +237,9 @@ public class GamingStageController implements Initializable {
 
                             if (turnIndex == 0) {
                                 deck.setCurrentLeadSuit(thrownCard.getSuit());
+                                if (whist.deckRound % 5 == 0) {
+                                    trumpIv.setImage(SuitToImage(deck.getCurrentLeadSuit()));
+                                }
                             }
                             you.throwCard(thrownCard);
                             deck.addThisRoundCard(you, thrownCard);
@@ -226,27 +256,42 @@ public class GamingStageController implements Initializable {
                                             refreshPlayedViews();
                                         } else {
                                             playerList.get(1).setTurn(true);
+                                            setEffectByTurn(1);
                                         }
                                     });
                                 }
                             }, 100);
                         } else {
-                            Label label = new Label("The lead suit is " + deck.getCurrentLeadSuit() + ", you have a " + deck.getCurrentLeadSuit() + ", so you must play it.");
+                            Label label = new Label("The lead suit is " + suitToSymbol(deck.getCurrentLeadSuit()) + ", you have a " + suitToSymbol(deck.getCurrentLeadSuit()) + ", so you must play it.");
                             Popup popup = new Popup();
-                            label.setStyle("-fx-background-color: white;");
+                            label.setStyle("-fx-background-color: white;-fx-font-family: 'Comic Sans MS';-fx-font-size: 14px;");
                             popup.getContent().add(label);
                             popup.setAutoFix(true);
                             popup.setAutoHide(true);
                             popup.setHideOnEscape(true);
-                            popup.setAnchorX(p1played.getLayoutX() + p1played.getX() + 140);
-                            popup.setAnchorY(p1played.getLayoutY() + p1played.getY() + 200);
+                            popup.setAnchorX(p1played.getScene().getWindow().getWidth() / 1.75);
+                            popup.setAnchorY(p1played.getScene().getWindow().getHeight() * 0.75);
                             popup.show(gamingGridPane.getScene().getWindow());
                         }
                     }
                 }
             }
         }
-
+        if (isSelect == 0) {
+            Label label = new Label("Please select a card! ");
+            Popup popup = new Popup();
+            label.setStyle("-fx-background-color: white;-fx-font-family: 'Comic Sans MS';-fx-font-size: 14px;-fx-pref-width: 180");
+            popup.getContent().add(label);
+            popup.setAutoFix(true);
+            popup.setAutoHide(true);
+            popup.setHideOnEscape(true);
+            System.out.println(p1played.getScene().getWindow().getWidth() + " " + p1played.getScene().getWindow().getHeight());
+            System.out.println(p1played.getLayoutX() + p1played.getX() + 180);
+            System.out.println(p1played.getLayoutY() + p1played.getY() + 200);
+            popup.setAnchorX(p1played.getScene().getWindow().getWidth() / 1.75);
+            popup.setAnchorY(p1played.getScene().getWindow().getHeight() * 0.75);
+            popup.show(gamingGridPane.getScene().getWindow());
+        }
     }
 
     public void initScoreBoardTable() {
@@ -313,16 +358,29 @@ public class GamingStageController implements Initializable {
                             } catch (CloneNotSupportedException | IOException e) {
                                 throw new RuntimeException(e);
                             }
-                            //todo 添加tricks的动画以及图层
                             p1played.imageProperty().set(null);
                             p2played.imageProperty().set(null);
                             p3played.imageProperty().set(null);
                             p4played.imageProperty().set(null);
+                            if (whist.deckRound % 5 == 0) {
+                                trumpIv.imageProperty().set(null);
+                            }
                             updatePlayersInfo();
                         }
                 );
             }
         }, 2000);
+    }
+
+    public void removeEffectForTrick(ImageView iv1) {
+        if (iv1 == null) return;
+        iv1.effectProperty().set(null);
+    }
+
+    public void setEffectForTrick(ImageView iv1) {
+        DropShadow shadow = new DropShadow(10.0, Color.PURPLE);
+        iv1.setEffect(shadow);
+
     }
 
     public void updatePlayersInfo() {
@@ -429,11 +487,11 @@ public class GamingStageController implements Initializable {
             }
             case 2: {
 //                strategy = new MediumSrtategy();
-                strategy = new EasyStrategy();
+                strategy = new MediumSrtategy();
             }
             case 3: {
 //                strategy = new HardStrategy();
-                strategy = new EasyStrategy();
+                strategy = new HardStrategy();
             }
 
         }
@@ -441,6 +499,9 @@ public class GamingStageController implements Initializable {
         Card AIcard = strategy.AIStrategy(playerThisTurn, deck, whist);
         if (turnIndex == 0) {
             deck.setCurrentLeadSuit(AIcard.getSuit());
+            if (whist.deckRound % 5 == 0) {
+                trumpIv.setImage(SuitToImage(deck.getCurrentLeadSuit()));
+            }
         }
         playerThisTurn.throwCard(AIcard);
         deck.addThisRoundCard(playerThisTurn, AIcard);
@@ -449,23 +510,72 @@ public class GamingStageController implements Initializable {
         return AIcard;
     }
 
+    private ImageView temp_trick;
     public void endOneRound() throws CloneNotSupportedException, IOException {
         HashMap<Player, Card> biggestCard = deck.getBiggestThisRound();
+
         for (Player winner : biggestCard.keySet()) {
             logger.add(winner.getId() + " wins this round with   " + suitToSymbol(biggestCard.get(winner).getSuit()) + " " + rankToSymbol(biggestCard.get(winner).getRank()));
             logger.add("-------------------------   Round " + round++ + "   -------------------------");
             System.out.println(winner.getId() + " biggest: " + biggestCard.get(winner).getSuit() + " " + biggestCard.get(winner).getRank());
             winner.addTrick(biggestCard.get(winner));
             if (playerList.get(0).equals(winner)) {
+
                 MyImageView trickIv = (MyImageView) p1played.clone();
+                if (temp_trick == null) {
+                    temp_trick = trickIv;
+                    setEffectForTrick(trickIv);
+                } else {
+//                    assert temp_trick != null;
+                    removeEffectForTrick(temp_trick);
+                    temp_trick = trickIv;
+                    setEffectForTrick(trickIv);
+                }
+//                ImageView targetIv=new ImageView();
+//                System.out.println(trickIv.localToScene(trickIv.getLayoutBounds()).getMinX());
+//                targetIv.setFitWidth(10.29 * 5);
+//                targetIv.setFitHeight(14.22 * 5);
+//                p1TricksPane.setLeftAnchor(targetIv, 0.0 + (10.29 * 3 * winner.getTricks().size() - 1));
+//                p1TricksPane.setBottomAnchor(targetIv, 0.0);
+//                p1TricksPane.getChildren().add(trickIv);
+//                System.out.println(targetIv.localToScene(targetIv.getLayoutBounds()).getMinX());
+//                System.out.println(targetIv.localToScene(targetIv.getLayoutBounds()).getMinY());
+//
+//                KeyValue kv1x = new KeyValue(trickIv.translateXProperty(), 0);
+//                KeyValue kv1y = new KeyValue(trickIv.translateYProperty(), 0);
+//                KeyValue kv1sx = new KeyValue(trickIv.scaleXProperty(), 1);
+//                KeyValue kv1sy = new KeyValue(trickIv.scaleYProperty(), 1);
+//                KeyFrame kf1 = new KeyFrame(Duration.seconds(0), kv1x, kv1y, kv1sx, kv1sy);
+//
+//                KeyValue kv2x = new KeyValue(trickIv.translateXProperty(), targetIv.localToScene(targetIv.getLayoutBounds()).getMinX() );
+//                KeyValue kv2y = new KeyValue(trickIv.translateYProperty(), targetIv.localToScene(targetIv.getLayoutBounds()).getMinY() );
+//                KeyValue kv2sx = new KeyValue(trickIv.scaleXProperty(), 0.5);
+//                KeyValue kv2sy = new KeyValue(trickIv.scaleYProperty(), 0.5);
+//                KeyFrame kf2 = new KeyFrame(Duration.seconds(2), kv2x, kv2y, kv2sx, kv2sy);
+//
+//                Timeline timeline = new Timeline();
+//                timeline.getKeyFrames().addAll(kf1, kf2);
+//
+//                timeline.play();
+//                System.out.println(trickIv.localToScene(trickIv.getLayoutBounds()).getMinX());
                 trickIv.setFitWidth(10.29 * 5);
                 trickIv.setFitHeight(14.22 * 5);
-                System.out.println(trickIv.translateXProperty());
                 p1TricksPane.setLeftAnchor(trickIv, 0.0 + (10.29 * 3 * winner.getTricks().size() - 1));
                 p1TricksPane.setBottomAnchor(trickIv, 0.0);
                 p1TricksPane.getChildren().add(trickIv);
+//                System.out.println(trickIv.localToScene(trickIv.getLayoutBounds()).getMinX());
+
             } else if (playerList.get(1).equals(winner)) {
                 MyImageView trickIv = (MyImageView) p2played.clone();
+                if (temp_trick == null) {
+                    temp_trick = trickIv;
+                    setEffectForTrick(trickIv);
+                } else {
+//                    assert temp_trick != null;
+                    removeEffectForTrick(temp_trick);
+                    temp_trick = trickIv;
+                    setEffectForTrick(trickIv);
+                }
                 trickIv.setFitWidth(10.29 * 5);
                 trickIv.setFitHeight(14.22 * 5);
                 System.out.println(trickIv.translateXProperty());
@@ -474,6 +584,15 @@ public class GamingStageController implements Initializable {
                 p2TricksPane.getChildren().add(trickIv);
             } else if (playerList.get(2).equals(winner)) {
                 MyImageView trickIv = (MyImageView) p3played.clone();
+                if (temp_trick == null) {
+                    temp_trick = trickIv;
+                    setEffectForTrick(trickIv);
+                } else {
+//                    assert temp_trick != null;
+                    removeEffectForTrick(temp_trick);
+                    temp_trick = trickIv;
+                    setEffectForTrick(trickIv);
+                }
                 trickIv.setFitWidth(10.29 * 5);
                 trickIv.setFitHeight(14.22 * 5);
                 System.out.println(trickIv.translateXProperty());
@@ -482,6 +601,15 @@ public class GamingStageController implements Initializable {
                 p3TricksPane.getChildren().add(trickIv);
             } else if (playerList.get(3).equals(winner)) {
                 MyImageView trickIv = (MyImageView) p4played.clone();
+                if (temp_trick == null) {
+                    temp_trick = trickIv;
+                    setEffectForTrick(trickIv);
+                } else {
+//                    assert temp_trick != null;
+                    removeEffectForTrick(temp_trick);
+                    temp_trick = trickIv;
+                    setEffectForTrick(trickIv);
+                }
                 trickIv.setFitWidth(10.29 * 5);
                 trickIv.setFitHeight(14.22 * 5);
                 System.out.println(trickIv.translateXProperty());
@@ -491,11 +619,13 @@ public class GamingStageController implements Initializable {
             }
 
             if (!deck.isDeckEmpty()) {
+                //测试跳转结算界面
 //            if (deck.isDeckEmpty()) {
                 System.out.println("deck not empty" + deck.cardsLeftOnDeck);
                 System.out.println("winner: " + winner.getId() + " " + playerList.indexOf(winner));
                 deck.setTurnListByStarter(playerList.indexOf(winner), true);
                 turnList = deck.getTurnList();
+                setEffectByTurn(playerList.indexOf(winner));
                 System.out.println("new turnList: " + turnList.get(0).getId() + " " + turnList.get(1).getId() + " " + turnList.get(2).getId() + " " + turnList.get(3).getId());
                 System.out.println("new order:" + turnList.get(0).isTurn() + " " + turnList.get(1).isTurn() + " " + turnList.get(2).isTurn() + " " + turnList.get(3).isTurn());
             } else {
@@ -521,7 +651,13 @@ public class GamingStageController implements Initializable {
                     scoreMap.put("uAndTeammateScoreTotal", String.valueOf(uAndTeammateScoreTotal));
                     scoreMap.put("opponentScore", String.valueOf(opponentScore));
                     scoreMap.put("opponentScoreTotal", String.valueOf(opponentScoreTotal));
-                    scoreMap.put("deckRound", String.valueOf(whist.deckRound) + "  " + suitToSymbol(deck.getCurrentTrump()));
+                    String deckRoundString;
+                    if (whist.deckRound % 5 != 0) {
+                        deckRoundString = whist.deckRound + "  " + suitToSymbol(deck.getCurrentTrump());
+                    } else {
+                        deckRoundString = whist.deckRound + "  " + "No Trump";
+                    }
+                    scoreMap.put("deckRound", deckRoundString);
                     for (String key : scoreMap.keySet()) {
                         System.out.println(key + ": " + scoreMap.get(key));
                     }
@@ -540,6 +676,20 @@ public class GamingStageController implements Initializable {
         }
     }
 
+    public void setEffectByTurn(int turn) {
+        DropShadow dropShadow = new DropShadow(10.0, Color.RED);
+        playButton.effectProperty().set(null);
+        avatar2.effectProperty().set(null);
+        avatar3.effectProperty().set(null);
+        avatar4.effectProperty().set(null);
+        switch (turn) {
+            case 0 -> playButton.setEffect(dropShadow);
+            case 1 -> avatar2.setEffect(dropShadow);
+            case 2 -> avatar3.setEffect(dropShadow);
+            case 3 -> avatar4.setEffect(dropShadow);
+        }
+    }
+
     public GamingStageController() {
         // TODO Auto-generated constructor stub
     }
@@ -555,10 +705,12 @@ public class GamingStageController implements Initializable {
 
     public void showLog(ActionEvent actionEvent) {
         if (logButton.isSelected()) {
+            logButton.setText("hide log");
             logPane.setDisable(false);
             logPane.setVisible(true);
             logListView.setItems(logger);
         } else {
+            logButton.setText("show log");
             logPane.setDisable(true);
             logPane.setVisible(false);
         }

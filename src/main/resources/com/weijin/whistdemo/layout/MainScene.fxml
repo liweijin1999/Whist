@@ -6,44 +6,37 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane layoutY="-1.0" prefHeight="400.0" prefWidth="600.0"
-            stylesheets="com/weijin/whistdemo/static/css/MainStage.css" xmlns="http://javafx.com/javafx/18"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.weijin.whistdemo.controllers.MainStageController">
+<AnchorPane fx:id="mainPanel" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.weijin.whistdemo.controllers.MainStageController"
+            stylesheets="com/weijin/whistdemo/static/css/mainstage.css">
     <children>
-        <MenuBar fx:id="menuBar" prefHeight="30.0" prefWidth="600.0">
-            <Menu mnemonicParsing="false" text="Menu">
-                <MenuItem mnemonicParsing="false" onAction="#click" text="New Game"/>
-                <MenuItem mnemonicParsing="false" onAction="#exit" text="Exit"/>
+        <MenuBar prefWidth="${mainPanel.width}">
+            <Menu text="Menu">
+                <MenuItem onAction="#click" text="New Game"/>
+                <MenuItem onAction="#exit" text="Exit"/>
             </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-                <MenuItem mnemonicParsing="false" onAction="#showRules" text="Learn Rules"/>
-                <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About"/>
+            <Menu text="Help">
+                <MenuItem onAction="#showRules" text="Learn Rules"/>
+                <MenuItem onAction="#showAbout" text="About"/>
             </Menu>
         </MenuBar>
-        <Button fx:id="playBtn" layoutX="235.0" layoutY="330.0" mnemonicParsing="false" onAction="#click"
-                prefHeight="50.0" prefWidth="130.0" text="PLAY">
-            <tooltip>
-                <Tooltip text="Start"/>
-            </tooltip>
-        </Button>
-        <Slider fx:id="difficultySlider" blockIncrement="1.0" layoutX="222.0" layoutY="259.0" majorTickUnit="1.0"
+        <Button fx:id="playBtn" layoutX="235.0" layoutY="330.0" onAction="#click" prefHeight="50.0" prefWidth="130.0"
+                text="PLAY"/>
+        <Slider fx:id="difficultySlider" blockIncrement="1.0" layoutX="263.0" layoutY="259.0" majorTickUnit="1.0"
                 max="3.0" min="1.0" minorTickCount="0" onDragDropped="#SliderDrag" onMouseClicked="#sliderClick"
-                prefHeight="51.0" prefWidth="176.0" showTickLabels="true" showTickMarks="true" value="1.0"/>
-        <ImageView fx:id="iv" fitHeight="187.0" fitWidth="315.0" layoutX="156.0" layoutY="44.0" pickOnBounds="true"
-                   preserveRatio="true">
-            <Image fx:id="start_img" url="@../static/pictures/start.png"/>
-        </ImageView>
-        <Label layoutX="147.0" layoutY="254.0" prefHeight="30.0" prefWidth="69.0" text="Difficulty"
-               textAlignment="CENTER">
-            <font>
-                <Font size="15.0"/>
-            </font>
-        </Label>
+                prefHeight="51.0" prefWidth="203.0" showTickLabels="true" showTickMarks="true" value="1.0"/>
+        <ImageView fx:id="iconImg" fitHeight="187.0" fitWidth="315.0" layoutX="67.0" layoutY="56.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <Label fx:id="diffLabel" layoutX="131.0" layoutY="254.0" prefHeight="30.0" prefWidth="110.0" text="Difficulty"
+               textAlignment="CENTER"/>
+        <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="363.0" layoutY="101.0" prefHeight="97.0"
+               prefWidth="223.0"
+               text="Welcome to Whist "/>
     </children>
 </AnchorPane>

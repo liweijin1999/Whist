@@ -23,8 +23,12 @@ public class SettleStage extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 //        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("layout/SettleScene.fxml")));
-        primaryStage.setTitle("WhistDemo (beta1.0)");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setTitle("WhistDemo (beta0.1)");
+        Scene scene = new Scene(root);
+        String css = this.getClass().getResource("static/css/common.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        primaryStage.setResizable(false);
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 

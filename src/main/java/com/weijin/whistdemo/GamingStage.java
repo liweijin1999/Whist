@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 public class GamingStage extends Application {
     Stage stage = new Stage();
@@ -21,9 +22,12 @@ public class GamingStage extends Application {
         loader.setRoot(this);
         GamingStageController target = loader.getController();
         target.initController(whist);
-        primaryStage.setTitle("WhistDemo (beta1.0)");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);
+        primaryStage.setTitle("WhistDemo (beta0.1)");
+        Scene scene = new Scene(root);
+        String css = this.getClass().getResource("static/css/common.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        primaryStage.setScene(scene);
+//        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

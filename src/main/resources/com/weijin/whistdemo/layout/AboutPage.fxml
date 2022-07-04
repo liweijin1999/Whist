@@ -6,22 +6,20 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-          prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18"
-          fx:controller="com.weijin.whistdemo.controllers.AboutStageController">
+<GridPane prefHeight="400.0" prefWidth="600.0"
+          xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.weijin.whistdemo.controllers.AboutStageController"
+          stylesheets="com/weijin/whistdemo/static/css/aboutpage.css">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="340.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="193.0" minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="330.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="193.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES"/>
     </rowConstraints>
-    <children>
-        <Label prefHeight="345.0" prefWidth="600.0" text="Developer: Weijin ">
 
-        </Label>
-        <Button fx:id="okBtn2" onAction="#exit" mnemonicParsing="false" prefHeight="46.0" prefWidth="87.0" text="Back"
-                GridPane.halignment="CENTER"
-                GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
-    </children>
+    <Label fx:id="aboutLabel" alignment="TOP_LEFT" lineSpacing="20.0" mouseTransparent="true" prefHeight="345.0"
+           prefWidth="600.0" wrapText="true"/>
+    <Button fx:id="okBtn2" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="80.0" text="Back"
+            GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>
 </GridPane>

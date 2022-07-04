@@ -1,0 +1,57 @@
+/**设置Button样式**/
+#okBtn {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #7271CF;
+    -fx-font-size: 16px;
+    -fx-font-family: "Comic Sans MS";
+    /*设置圆角*/
+    -fx-border-color: #7574D7;
+    -fx-background-radius: 70;
+    -fx-border-radius: 70;
+}
+
+/**设置Button  鼠标悬停样式**/
+#okBtn:hover {
+    -fx-background-color: #7271CF;
+    -fx-text-fill: #ffffff;
+    /*设置圆角*/
+    -fx-border-color: #7574D7;
+}
+
+/**设置Button 点击鼠标样式**/
+#okBtn:pressed {
+    /**设置边框背景颜色**/
+    -fx-border-color: red;
+}
+
+.h3 {
+    -fx-font-family: "Bradley Hand";
+}
+
+.h5 {
+    -fx-font-family: "sans-serif";
+    -fx-font-size: 17;
+    -fx-spacing: 15.0;
+}
+
+.panel-customised {
+    -fx-border-color: #7271CF;
+}
+
+.panel-customised > .panel-heading {
+    -fx-text-fill: #fff;
+    -fx-fill: #fff;
+    -fx-background-color: linear-gradient(to bottom, #7271CF 0px, #8584D5 100%);
+    -fx-border-color: #7271CF;
+}
+
+.panel-customised > .panel-heading * {
+    -fx-text-fill: #fff;
+    -fx-fill: #fff;
+}
+
+.panel-customised > .panel-heading .badge {
+    -fx-text-fill: #7271CF;
+    -fx-fill: #7271CF;
+    -fx-background-color: #fff;
+}

@@ -8,10 +8,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,6 +26,7 @@ public class MainStageController implements Initializable {
     public Button playBtn;
     @FXML
     public Slider difficultySlider;
+    public ImageView iconImg;
 
 
     public MainStageController() {
@@ -40,6 +45,10 @@ public class MainStageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // TODO Auto-generated method stub
+        File file = new File("src/main/resources/com/weijin/whistdemo/static/pictures/start.png");
+        String path = file.toURI().toString();
+        iconImg.setImage(new Image(path));
+
 
     }
 

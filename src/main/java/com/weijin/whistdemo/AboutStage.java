@@ -15,7 +15,10 @@ public class AboutStage extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("layout/AboutPage.fxml")));
         primaryStage.setTitle("About");
-        primaryStage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        String css = this.getClass().getResource("static/css/common.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
 

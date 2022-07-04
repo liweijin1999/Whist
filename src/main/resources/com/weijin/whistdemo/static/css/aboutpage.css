@@ -1,0 +1,31 @@
+#aboutLabel {
+    -fx-font-family: Chalkduster;
+    -fx-font-size: 16;
+    -fx-label-padding: 20, 20, 20, 20;
+}
+
+/**设置Button样式**/
+#okBtn2 {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #7271CF;
+    -fx-font-size: 16px;
+    -fx-font-family: "Comic Sans MS";
+    /*设置圆角*/
+    -fx-border-color: #7574D7;
+    -fx-background-radius: 70;
+    -fx-border-radius: 70;
+}
+
+/**设置Button  鼠标悬停样式**/
+#okBtn2:hover {
+    -fx-background-color: #7271CF;
+    -fx-text-fill: #ffffff;
+    /*设置圆角*/
+    -fx-border-color: #7574D7;
+}
+
+/**设置Button 点击鼠标样式**/
+#okBtn2:pressed {
+    /**设置边框背景颜色**/
+    -fx-border-color: red;
+}

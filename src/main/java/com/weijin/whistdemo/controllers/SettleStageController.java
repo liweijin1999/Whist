@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class SettleStageController implements Initializable {
+    public Label congratsLabel;
     private WhistImpl whist;
     public TableView<SettleScoreBoard> scoreBoardTable;
     public TableColumn<SettleScoreBoard, String> game;
@@ -45,7 +46,18 @@ public class SettleStageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // TODO Auto-generated method stub
-
+//        game.setCellValueFactory(cellData -> cellData.getValue().deckRoundProperty());
+//        team1.setCellValueFactory(cellData -> cellData.getValue().teamScoreProperty());
+//        team2.setCellValueFactory(cellData -> cellData.getValue().opponentScoreProperty());
+//        winners.setCellValueFactory(cellData -> cellData.getValue().winnersProperty());
+//        scoreBoardTable.setItems(scoreBoardData);
+//        SettleScoreBoard scoreBoard1 = new SettleScoreBoard("example1","1","2","3");
+//        SettleScoreBoard scoreBoard2 = new SettleScoreBoard("example2","1","2","3");
+//        SettleScoreBoard scoreBoard3 = new SettleScoreBoard("example3","1","2","3");
+//        scoreBoardData.add(scoreBoard1);
+//        scoreBoardData.add(scoreBoard2);
+//        scoreBoardData.add(scoreBoard3);
+//        congratsLabel.setText("Oops! You just lost, Come on next round!");
     }
 
     public void initScoreBoard(WhistImpl whist, HashMap<String, String> scoreMap) {
@@ -61,14 +73,18 @@ public class SettleStageController implements Initializable {
         String deckWinnersName;
         if (Integer.parseInt(scoreMap.get("uAndTeammateScore")) > Integer.parseInt(scoreMap.get("opponentScore"))) {
             deckWinnersName = team1Name;
+            congratsLabel.setText("Congrats! You win this round!");
         } else {
             deckWinnersName = team2Name;
+            congratsLabel.setText("Oops! You just lost, Come on next round!");
         }
         String totalWinnersName;
         if (Integer.parseInt(scoreMap.get("uAndTeammateScoreTotal")) > Integer.parseInt(scoreMap.get("opponentScoreTotal"))) {
             totalWinnersName = team1Name;
-        } else {
+        } else if (Integer.parseInt(scoreMap.get("uAndTeammateScoreTotal")) < Integer.parseInt(scoreMap.get("opponentScoreTotal"))) {
             totalWinnersName = team2Name;
+        } else {
+            totalWinnersName = "Tie";
         }
         team1.setText(team1Name);
         team2.setText(team2Name);

@@ -1,0 +1,24 @@
+/**设置Label样式**/
+.label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-font-family: 'Comic Sans MS';
+    -fx-text-fill: #7271CF;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.5), 0, 0, 0, 1);
+}
+
+#playBtn {
+    -fx-font-family: "Chalkduster";
+}
+
+#diffLabel {
+    -fx-font-size: 18;
+}
+
+#welcomeLabel {
+    -fx-font-family: "Chalkduster";
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+    -fx-rotate: -5;
+    -fx-underline: true;
+}

@@ -27,9 +27,4 @@ public class animation {
             controlledIV.setY(controlledIV.getY() + CARDPOP);
         }
     }
-
-    public Image rotateImage(Image image) {
-
-        return image;
-    }
 }

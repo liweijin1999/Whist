@@ -5,6 +5,11 @@ import com.weijin.whistdemo.model.*;
 public class HardStrategy implements Strategy {
     @Override
     public Card AIStrategy(Player player, Deck deck, AbstractWhist cardGame) {
-        return new Card(Suit.CLUBS, Rank.ACE);
+        for (Card card : player.getCurrHand()) {
+            if (deck.isAllowed(player, card, deck)) {
+                return card;
+            }
+        }
+        return null;
     }
 }
