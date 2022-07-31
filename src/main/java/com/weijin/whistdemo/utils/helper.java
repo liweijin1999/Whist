@@ -88,12 +88,12 @@ public class helper {
         return sortedCards;
     }
 
-    public static void rearrange(ImageView seletedIV, List<Card> handList, List<ImageView> ivList, HashMap<ImageView, Card> handMap) {
+    public static void rearrange(ImageView selectedIV, List<Card> handList, List<ImageView> ivList, HashMap<ImageView, Card> handMap) {
         //preliminary:每次循环的时候都是规律的
-        int playedHandIndex = handList.indexOf(handMap.get(seletedIV));// 出的牌在手牌当中的索引
-        int playedIVindex = ivList.indexOf(seletedIV);//出的牌在13张图层的索引
+        int playedHandIndex = handList.indexOf(handMap.get(selectedIV));// 出的牌在手牌当中的索引
+        int playedIVindex = ivList.indexOf(selectedIV);//出的牌在13张图层的索引
         int leftBound = playedIVindex - playedHandIndex; //图层中不为空的第一张牌的索引（部分移动前）,移动后要+1
-        handList.remove(handMap.get(seletedIV));
+        handList.remove(handMap.get(selectedIV));
         int cardsPlayed = ivList.size() - handList.size();//已经出的牌数
         int rightBound = (ivList.size() - 1) - (cardsPlayed - leftBound) + 1; //图层中不为空的最后一张牌的索引（部分移动前）,移动后要-1
 
@@ -126,6 +126,7 @@ public class helper {
             }
         } else {
             for (int i = playedIVindex; i < rightBound; i++) {
+                System.out.println("check: " + i + " rightBound: " + rightBound);
                 ivList.get(i).setImage(ivList.get(i + 1).getImage());
                 handMap.put(ivList.get(i), handMap.get(ivList.get(i + 1)));
             }
@@ -219,6 +220,18 @@ public class helper {
                 e.initCause(cloneNotSupportedException);
                 throw cloneNotSupportedException;
             }
+        }
+
+        public static <T> List<T> deepCopy(List<T> src) throws IOException, ClassNotFoundException {
+            ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+            ObjectOutputStream out = new ObjectOutputStream(byteOut);
+            out.writeObject(src);
+
+            ByteArrayInputStream byteIn = new ByteArrayInputStream(byteOut.toByteArray());
+            ObjectInputStream in = new ObjectInputStream(byteIn);
+            @SuppressWarnings("unchecked")
+            List<T> dest = (List<T>) in.readObject();
+            return dest;
         }
     }
 }

@@ -11,7 +11,7 @@ public class EasyStrategy implements Strategy {
     @Override
     public Card AIStrategy(Player player, Deck deck, AbstractWhist cardGame) {
         for (Card card : player.getCurrHand()) {
-            if (deck.isAllowed(player, card, deck)) {
+            if (deck.declare(player, card, deck)) {
                 return card;
             }
         }

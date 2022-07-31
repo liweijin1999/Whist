@@ -179,3 +179,8 @@
     /*设置圆角*/
     -fx-border-color: red;
 }
+
+.toggle-button:selected:hover {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #7271CF;
+}

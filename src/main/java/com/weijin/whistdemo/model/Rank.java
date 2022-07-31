@@ -17,6 +17,9 @@ public enum Rank {
         if (value == 0) {
             return KING;
         }
+        if (value == 14) {
+            return ACE;
+        }
         for (Rank rank : Rank.values()) {
             if (rank.getValue() == value) {
                 return rank;
@@ -32,5 +35,4 @@ public enum Rank {
             return this.value;
         }
     }
-
 }

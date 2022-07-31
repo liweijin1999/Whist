@@ -21,10 +21,11 @@ public class AboutStageController implements Initializable {
         aboutLabel.setText("""
                 Name of Game: Whist
                 Developer: Weijin
-                Description: A project as the Msc. final project at University of Manchester.
+                Description: A project as the Msc. final project at The University of Manchester.
                 Version: beta v0.1
-                                
-                            Thank you for playing! Have fun!
+                Repo: https://github.com/liweijin1999/Whist
+                               
+                                Thank you for playing! Have fun!
                 """);
     }
 

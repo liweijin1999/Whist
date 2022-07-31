@@ -18,7 +18,7 @@
         <RowConstraints maxHeight="193.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES"/>
     </rowConstraints>
 
-    <Label fx:id="aboutLabel" alignment="TOP_LEFT" lineSpacing="20.0" mouseTransparent="true" prefHeight="345.0"
+    <Label fx:id="aboutLabel" alignment="TOP_LEFT" lineSpacing="15.0" mouseTransparent="true" prefHeight="345.0"
            prefWidth="600.0" wrapText="true"/>
     <Button fx:id="okBtn2" mnemonicParsing="false" onAction="#exit" prefHeight="40.0" prefWidth="80.0" text="Back"
             GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER"/>

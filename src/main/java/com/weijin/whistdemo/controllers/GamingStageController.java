@@ -10,7 +10,6 @@ import com.weijin.whistdemo.RuleStage;
 import com.weijin.whistdemo.model.*;
 import com.weijin.whistdemo.SettleStage;
 import com.weijin.whistdemo.javafxComponents.MyImageView;
-import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,17 +18,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -70,7 +65,7 @@ public class GamingStageController implements Initializable {
     public Label trumpSuitIcon;
     public AnchorPane p1handPane;
     public ImageView avatar2, avatar3, avatar4;
-
+    private HashMap<ImageView, Card> reviewHandMap = new HashMap<>(13);
 
     private HashMap<ImageView, Card> handMap = new HashMap<>(13);
     WhistImpl whist;
@@ -82,6 +77,71 @@ public class GamingStageController implements Initializable {
     int round;
     final double FIT_WIDTH = 102.9;
     final double FIT_HEIGHT = 142.2;
+
+    boolean reviewMode = true;
+
+    public void deal() {
+        Card card1 = new Card(Suit.HEARTS, Rank.TEN);
+        Card card2 = new Card(Suit.HEARTS, Rank.SEVEN);
+        Card card3 = new Card(Suit.SPADES, Rank.ACE);
+        Card card4 = new Card(Suit.SPADES, Rank.KING);
+        Card card5 = new Card(Suit.SPADES, Rank.TEN);
+        Card card6 = new Card(Suit.SPADES, Rank.NINE);
+        Card card7 = new Card(Suit.SPADES, Rank.FOUR);
+        Card card8 = new Card(Suit.SPADES, Rank.THREE);
+        Card card9 = new Card(Suit.DIAMONDS, Rank.FIVE);
+        Card card10 = new Card(Suit.DIAMONDS, Rank.FOUR);
+        Card card11 = new Card(Suit.CLUBS, Rank.KING);
+        Card card12 = new Card(Suit.CLUBS, Rank.EIGHT);
+        Card card13 = new Card(Suit.CLUBS, Rank.SIX);
+        List<Card> handList1 = new ArrayList<>(List.of(card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13));
+        playerList.get(0).setInitHand(handList1);
+        Card card14 = new Card(Suit.HEARTS, Rank.ACE);
+        Card card15 = new Card(Suit.HEARTS, Rank.QUEEN);
+        Card card16 = new Card(Suit.HEARTS, Rank.JACK);
+        Card card17 = new Card(Suit.SPADES, Rank.EIGHT);
+        Card card18 = new Card(Suit.SPADES, Rank.SEVEN);
+        Card card19 = new Card(Suit.SPADES, Rank.FIVE);
+        Card card20 = new Card(Suit.DIAMONDS, Rank.ACE);
+        Card card21 = new Card(Suit.DIAMONDS, Rank.TEN);
+        Card card22 = new Card(Suit.CLUBS, Rank.QUEEN);
+        Card card23 = new Card(Suit.CLUBS, Rank.JACK);
+        Card card24 = new Card(Suit.CLUBS, Rank.TEN);
+        Card card25 = new Card(Suit.CLUBS, Rank.FIVE);
+        Card card26 = new Card(Suit.CLUBS, Rank.THREE);
+        List<Card> handList2 = new ArrayList<>(List.of(card14, card15, card16, card17, card18, card19, card20, card21, card22, card23, card24, card25, card26));
+        playerList.get(1).setInitHand(handList2);
+        Card card27 = new Card(Suit.HEARTS, Rank.KING);
+        Card card28 = new Card(Suit.HEARTS, Rank.EIGHT);
+        Card card29 = new Card(Suit.HEARTS, Rank.SIX);
+        Card card30 = new Card(Suit.HEARTS, Rank.FOUR);
+        Card card31 = new Card(Suit.HEARTS, Rank.TWO);
+        Card card32 = new Card(Suit.SPADES, Rank.SIX);
+        Card card33 = new Card(Suit.SPADES, Rank.TWO);
+        Card card34 = new Card(Suit.DIAMONDS, Rank.NINE);
+        Card card35 = new Card(Suit.DIAMONDS, Rank.SIX);
+        Card card36 = new Card(Suit.DIAMONDS, Rank.THREE);
+        Card card37 = new Card(Suit.DIAMONDS, Rank.TWO);
+        Card card38 = new Card(Suit.CLUBS, Rank.ACE);
+        Card card39 = new Card(Suit.CLUBS, Rank.SEVEN);
+        List<Card> handList3 = new ArrayList<>(List.of(card27, card28, card29, card30, card31, card32, card33, card34, card35, card36, card37, card38, card39));
+        playerList.get(2).setInitHand(handList3);
+        Card card40 = new Card(Suit.HEARTS, Rank.NINE);
+        Card card41 = new Card(Suit.HEARTS, Rank.FIVE);
+        Card card42 = new Card(Suit.HEARTS, Rank.THREE);
+        Card card43 = new Card(Suit.SPADES, Rank.QUEEN);
+        Card card44 = new Card(Suit.SPADES, Rank.JACK);
+        Card card45 = new Card(Suit.DIAMONDS, Rank.KING);
+        Card card46 = new Card(Suit.DIAMONDS, Rank.QUEEN);
+        Card card47 = new Card(Suit.DIAMONDS, Rank.JACK);
+        Card card48 = new Card(Suit.DIAMONDS, Rank.EIGHT);
+        Card card49 = new Card(Suit.DIAMONDS, Rank.SEVEN);
+        Card card50 = new Card(Suit.CLUBS, Rank.NINE);
+        Card card51 = new Card(Suit.CLUBS, Rank.FOUR);
+        Card card52 = new Card(Suit.CLUBS, Rank.TWO);
+        List<Card> handList4 = new ArrayList<>(List.of(card40, card41, card42, card43, card44, card45, card46, card47, card48, card49, card50, card51, card52));
+        playerList.get(3).setInitHand(handList4);
+    }
 
     public void initController(WhistImpl whistConcrete) {
         /*
@@ -96,11 +156,19 @@ public class GamingStageController implements Initializable {
          */
         deck = new Deck(playerList);
         round = 1;
+        deck.setRound(round);
         initScoreBoardTable();
         whist.addDeckRound();
         deck.initNewDeck(whist.deckRound);
         //测试第n局
-//        deck.initNewDeck(5);
+//        deck.initNewDeck(2);
+//        deck.setTurnListByStarter(0, false);//test
+        for (Player player : playerList) {
+            player.setTrumpSuit(deck.getCurrentTrump());
+        }
+        turnList = deck.getTurnList();
+        deck.dealCards(turnList);
+//        deal();//test
         if (deck.getCurrentTrump() == null) {
             trumpLabel.setText("No Trump This Round");
             trumpSuitIcon.setText("");
@@ -115,9 +183,6 @@ public class GamingStageController implements Initializable {
             }
             trumpIv.setImage(SuitToImage(deck.getCurrentTrump()));
         }
-        turnList = deck.getTurnList();
-        deck.dealCards(turnList);
-
         initCardViews();
         playButton.setVisible(false);
         updatePlayersInfo();
@@ -140,11 +205,26 @@ public class GamingStageController implements Initializable {
                     public void run() {
                         Platform.runLater(() -> {
                             int turnIndex = turnList.indexOf(playerList.get(1));
-                            Card AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
+                            Card AIcard = null;
+                            try {
+                                AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
+                            } catch (IOException | ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
                             logger.add(playerList.get(1).getId() + " played:   " + suitToSymbol(AIcard.getSuit()) + " " + rankToSymbol(AIcard.getRank()));
                             System.out.println(playerList.get(1).getId() + " played: " + AIcard.getSuit() + " " + AIcard.getRank());
                             p2played.setImage(CardToImage(AIcard));
-                            HandIvSetNullAfterThrowCard(playerList.get(1));
+                            if (reviewMode) {
+                                //重新排序
+                                for (ImageView iv : reviewHandMap.keySet()) {
+                                    if (reviewHandMap.get(iv).getSuit() == AIcard.getSuit() && reviewHandMap.get(iv).getRank() == AIcard.getRank()) {
+                                        iv.imageProperty().set(null);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                HandIvSetNullAfterThrowCard(playerList.get(1));
+                            }
                             updatePlayersInfo();
                             if (turnIndex == 3) {
                                 refreshPlayedViews();
@@ -166,11 +246,28 @@ public class GamingStageController implements Initializable {
                         public void run() {
                             Platform.runLater(() -> {
                                 int turnIndex = turnList.indexOf(playerList.get(2));
-                                Card AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
+                                Card AIcard = null;
+                                try {
+                                    AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                } catch (ClassNotFoundException e) {
+                                    throw new RuntimeException(e);
+                                }
                                 logger.add(playerList.get(2).getId() + " played:   " + suitToSymbol(AIcard.getSuit()) + " " + rankToSymbol(AIcard.getRank()));
                                 System.out.println(playerList.get(2).getId() + " played: " + AIcard.getSuit() + " " + AIcard.getRank());
                                 p3played.setImage(CardToImage(AIcard));
-                                HandIvSetNullAfterThrowCard(playerList.get(2));
+                                if (reviewMode) {
+                                    //重新排序
+                                    for (ImageView iv : reviewHandMap.keySet()) {
+                                        if (reviewHandMap.get(iv).getSuit() == AIcard.getSuit() && reviewHandMap.get(iv).getRank() == AIcard.getRank()) {
+                                            iv.imageProperty().set(null);
+                                            break;
+                                        }
+                                    }
+                                } else {
+                                    HandIvSetNullAfterThrowCard(playerList.get(2));
+                                }
                                 updatePlayersInfo();
                                 if (turnIndex == 3) {
                                     refreshPlayedViews();
@@ -191,11 +288,28 @@ public class GamingStageController implements Initializable {
                     public void run() {
                         Platform.runLater(() -> {
                             int turnIndex = turnList.indexOf(playerList.get(3));
-                            Card AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
+                            Card AIcard = null;
+                            try {
+                                AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            } catch (ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
                             logger.add(playerList.get(3).getId() + " played:   " + suitToSymbol(AIcard.getSuit()) + " " + rankToSymbol(AIcard.getRank()));
                             System.out.println(playerList.get(3).getId() + " played: " + AIcard.getSuit() + " " + AIcard.getRank());
                             p4played.setImage(CardToImage(AIcard));
-                            HandIvSetNullAfterThrowCard(playerList.get(3));
+                            if (reviewMode) {
+                                //重新排序
+                                for (ImageView iv : reviewHandMap.keySet()) {
+                                    if (reviewHandMap.get(iv).getSuit() == AIcard.getSuit() && reviewHandMap.get(iv).getRank() == AIcard.getRank()) {
+                                        iv.imageProperty().set(null);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                HandIvSetNullAfterThrowCard(playerList.get(3));
+                            }
                             updatePlayersInfo();
                             if (turnIndex == 3) {
                                 refreshPlayedViews();
@@ -208,6 +322,7 @@ public class GamingStageController implements Initializable {
                 }, 2000);
             }
         });
+
         logger.add("-------------------------   Round " + round++ + "   -------------------------");
         turnList.get(0).setTurn(true);
         setEffectByTurn(playerList.indexOf(turnList.get(0)));
@@ -227,7 +342,7 @@ public class GamingStageController implements Initializable {
                 for (ImageView iv : handMap.keySet()) {
                     if (imageView == iv) {
                         System.out.println(handMap.get(iv).getId());
-                        if (deck.isAllowed(you, handMap.get(iv), deck)) {
+                        if (deck.declare(you, handMap.get(iv), deck)) {
                             Card thrownCard = handMap.get(iv);
                             logger.add(you.getId() + " played:   " + suitToSymbol(thrownCard.getSuit()) + " " + rankToSymbol(thrownCard.getRank()));
                             System.out.println(you.getId() + " played: " + thrownCard.getSuit() + " " + thrownCard.getRank());
@@ -314,31 +429,65 @@ public class GamingStageController implements Initializable {
     }
 
     public void initCardViews() {
-        //对当前手牌进行排序，顺序：Spade，Heart，Diamond，Club; A，k，Q，J，10，9，8，7，6，5，4，3，2
-        List<Card> sortedCards = sortCards(you.getCurrHand());
-        handList.addAll(sortedCards);
+        if (reviewMode) {
+            List<Card> sortedCards = sortCards(you.getCurrHand());
+            handList.addAll(sortedCards);
 
-        //手牌图层-玩家手牌
-        for (int i = 0; i < p1ivList.size(); i++) {
-            handMap.put(p1ivList.get(i), handList.get(i));
-        }
-        //重置手牌图层宽高
-        for (ImageView iv : p1ivList) {
-            iv.setFitWidth(FIT_WIDTH);
-            iv.setFitHeight(FIT_HEIGHT);
-        }
-        //设置imageView的图片
-        for (int i = 0; i < 13; i++) {
-            p1ivList.get(i).setImage(CardToImage(handList.get(i)));
-            p3ivList.get(i).setImage(CardToImage(null));
-            p2ivList.get(i).setRotate(90);
-            p2ivList.get(i).setImage(CardToImage(null));
-            p2ivList.get(i).setRotate(-90);
-            p4ivList.get(i).setRotate(90);
-            p4ivList.get(i).setImage(CardToImage(null));
-            p4ivList.get(i).setRotate(90);
-        }
+            //手牌图层-玩家手牌
+            for (int i = 0; i < p1ivList.size(); i++) {
+                handMap.put(p1ivList.get(i), handList.get(i));
+            }
+            List<Card> p1hand = sortCards(playerList.get(0).getCurrHand());
+            List<Card> p2hand = sortCards(playerList.get(1).getCurrHand());
+            List<Card> p3hand = sortCards(playerList.get(2).getCurrHand());
+            List<Card> p4hand = sortCards(playerList.get(3).getCurrHand());
+            for (int i = 0; i < 13; i++) {
+                reviewHandMap.put(p1ivList.get(i), p1hand.get(i));
+                reviewHandMap.put(p2ivList.get(i), p2hand.get(i));
+                reviewHandMap.put(p3ivList.get(i), p3hand.get(i));
+                reviewHandMap.put(p4ivList.get(i), p4hand.get(i));
+            }
+            //重置手牌图层宽高
+            for (ImageView iv : p1ivList) {
+                iv.setFitWidth(FIT_WIDTH);
+                iv.setFitHeight(FIT_HEIGHT);
+            }
+            for (int i = 0; i < 13; i++) {
+                p1ivList.get(i).setImage(CardToImage(p1hand.get(i)));
+                p3ivList.get(i).setImage(CardToImage(p3hand.get(i)));
+                p2ivList.get(i).setRotate(90);
+                p2ivList.get(i).setImage(CardToImage(p2hand.get(i)));
+                p2ivList.get(i).setRotate(-90);
+                p4ivList.get(i).setRotate(90);
+                p4ivList.get(i).setImage(CardToImage(p4hand.get(i)));
+                p4ivList.get(i).setRotate(90);
+            }
+        } else {
+            //对当前手牌进行排序，顺序：Spade，Heart，Diamond，Club; A，k，Q，J，10，9，8，7，6，5，4，3，2
+            List<Card> sortedCards = sortCards(you.getCurrHand());
+            handList.addAll(sortedCards);
 
+            //手牌图层-玩家手牌
+            for (int i = 0; i < p1ivList.size(); i++) {
+                handMap.put(p1ivList.get(i), handList.get(i));
+            }
+            //重置手牌图层宽高
+            for (ImageView iv : p1ivList) {
+                iv.setFitWidth(FIT_WIDTH);
+                iv.setFitHeight(FIT_HEIGHT);
+            }
+            //设置imageView的图片
+            for (int i = 0; i < 13; i++) {
+                p1ivList.get(i).setImage(CardToImage(handList.get(i)));
+                p3ivList.get(i).setImage(CardToImage(null));
+                p2ivList.get(i).setRotate(90);
+                p2ivList.get(i).setImage(CardToImage(null));
+                p2ivList.get(i).setRotate(-90);
+                p4ivList.get(i).setRotate(90);
+                p4ivList.get(i).setImage(CardToImage(null));
+                p4ivList.get(i).setRotate(90);
+            }
+        }
         //清空tricks
         p1TricksPane.getChildren().clear();
         p2TricksPane.getChildren().clear();
@@ -478,24 +627,27 @@ public class GamingStageController implements Initializable {
 
     }
 
-    public Card AIthrowCard(int turnIndex, Integer difficulty) {
+    public Card AIthrowCard(int turnIndex, Integer difficulty) throws IOException, ClassNotFoundException {
         Strategy strategy = null;
         Player playerThisTurn = turnList.get(turnIndex);
         switch (difficulty) {
-            case 1: {
+            case 1 -> {
                 strategy = new EasyStrategy();
             }
-            case 2: {
+            case 2 -> {
+                System.out.println("Medium");
 //                strategy = new MediumSrtategy();
                 strategy = new MediumSrtategy();
             }
-            case 3: {
+            case 3 -> {
 //                strategy = new HardStrategy();
+                System.out.println("hard");
                 strategy = new HardStrategy();
             }
 
         }
 
+        assert strategy != null;
         Card AIcard = strategy.AIStrategy(playerThisTurn, deck, whist);
         if (turnIndex == 0) {
             deck.setCurrentLeadSuit(AIcard.getSuit());
@@ -516,6 +668,8 @@ public class GamingStageController implements Initializable {
 
         for (Player winner : biggestCard.keySet()) {
             logger.add(winner.getId() + " wins this round with   " + suitToSymbol(biggestCard.get(winner).getSuit()) + " " + rankToSymbol(biggestCard.get(winner).getRank()));
+            deck.setRound(round);
+            System.out.println("round: " + round);
             logger.add("-------------------------   Round " + round++ + "   -------------------------");
             System.out.println(winner.getId() + " biggest: " + biggestCard.get(winner).getSuit() + " " + biggestCard.get(winner).getRank());
             winner.addTrick(biggestCard.get(winner));
@@ -617,7 +771,7 @@ public class GamingStageController implements Initializable {
                 p4TricksPane.setTopAnchor(trickIv, 0.0);
                 p4TricksPane.getChildren().add(trickIv);
             }
-
+            deck.resetThisRoundCards();
             if (!deck.isDeckEmpty()) {
                 //测试跳转结算界面
 //            if (deck.isDeckEmpty()) {
@@ -628,6 +782,7 @@ public class GamingStageController implements Initializable {
                 setEffectByTurn(playerList.indexOf(winner));
                 System.out.println("new turnList: " + turnList.get(0).getId() + " " + turnList.get(1).getId() + " " + turnList.get(2).getId() + " " + turnList.get(3).getId());
                 System.out.println("new order:" + turnList.get(0).isTurn() + " " + turnList.get(1).isTurn() + " " + turnList.get(2).isTurn() + " " + turnList.get(3).isTurn());
+
             } else {
                 int uAndTeammateTricks = playerList.get(0).getTricks().size() + playerList.get(2).getTricks().size();
                 int opponentTricks = playerList.get(1).getTricks().size() + playerList.get(3).getTricks().size();

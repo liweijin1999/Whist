@@ -20,6 +20,10 @@ public class Card {
 
     }
 
+    public int getValue() {
+        return rank.getCardValue();
+    }
+
     public Suit getSuit() {
         return suit;
     }

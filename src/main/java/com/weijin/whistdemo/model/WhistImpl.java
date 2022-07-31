@@ -1,15 +1,19 @@
 package com.weijin.whistdemo.model;
 
+import com.weijin.whistdemo.singleton.FileLogger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.*;
+
+import static com.weijin.whistdemo.utils.helper.rankToSymbol;
 
 public class WhistImpl extends AbstractWhist {
     public List<Player> playerList = new ArrayList<>(4);
     public Integer deckRound = 0;
     ObservableList<SettleScoreBoard> scoreBoardData = FXCollections.observableArrayList();
     private Integer difficulty;
+
     public ObservableList<SettleScoreBoard> getScoreBoardData() {
         return scoreBoardData;
     }
@@ -32,6 +36,9 @@ public class WhistImpl extends AbstractWhist {
 
     public void addDeckRound() {
         deckRound++;
+        FileLogger obj = FileLogger.getFileLogger();
+        obj.write("Game  " + deckRound);
+        obj.close();
     }
 
     public void setScoreBoardData(ObservableList<SettleScoreBoard> scoreBoardData) {
