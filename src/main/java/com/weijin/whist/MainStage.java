@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+import javax.script.Bindings;
+import java.io.File;
 import java.util.Objects;
 
 public class MainStage extends Application {
@@ -14,9 +16,14 @@ public class MainStage extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("layout/MainScene.fxml")));
-        Font.loadFont(Objects.requireNonNull(getClass().getResource("fonts/Chalkduster.ttf").toExternalForm()), 15);
+        Parent root = FXMLLoader.load(getClass().getResource("layout/MainScene.fxml"));
         primaryStage.setTitle("Whist (beta0.1)");
+        Font.loadFont(Objects.requireNonNull(getClass().getResource("fonts/Chalkduster.ttf").toExternalForm()), 15);
+        String url="src/main/resources/com/weijin/whist/icons/img.png";
+        File file=new File(url);
+        String path = file.toURI().toString();
+        Image icon= new Image(path);
+        primaryStage.getIcons().add(icon);
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("static/css/common.css").toExternalForm();
         scene.getStylesheets().add(css);

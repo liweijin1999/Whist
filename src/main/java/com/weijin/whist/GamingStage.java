@@ -7,7 +7,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class GamingStage extends Application {
     Stage stage = new Stage();
@@ -22,6 +25,11 @@ public class GamingStage extends Application {
         GamingStageController target = loader.getController();
         target.initController(whist);
         primaryStage.setTitle("Whist (beta0.1)");
+        String url="src/main/resources/com/weijin/whist/icons/img.png";
+        File file=new File(url);
+        String path = file.toURI().toString();
+        Image icon= new Image(path);
+        primaryStage.getIcons().add(icon);
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("static/css/common.css").toExternalForm();
         scene.getStylesheets().add(css);

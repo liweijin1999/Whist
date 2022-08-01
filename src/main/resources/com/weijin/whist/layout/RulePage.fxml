@@ -14,7 +14,7 @@
           minHeight="130.0" prefHeight="600.0" prefWidth="900.0"
           xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="com.weijin.whist.controllers.RuleStageController"
-          stylesheets="com/weijin/whistdemo/static/css/rulepage.css">
+          stylesheets="com/weijin/whist/static/css/rulepage.css">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0"/>
     </columnConstraints>

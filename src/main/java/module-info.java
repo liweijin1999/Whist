@@ -1,4 +1,4 @@
-module com.weijin.whistdemo {
+module com.weijin.whist {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -6,6 +6,7 @@ module com.weijin.whistdemo {
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires java.scripting;
 
     opens com.weijin.whist to javafx.fxml;
     exports com.weijin.whist;
