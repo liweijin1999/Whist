@@ -23,7 +23,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.beans.PropertyChangeEvent;
@@ -65,6 +64,7 @@ public class GamingStageController implements Initializable {
     public Label trumpSuitIcon;
     public AnchorPane p1handPane;
     public ImageView avatar2, avatar3, avatar4;
+    public Label tipLabel;
     private HashMap<ImageView, Card> reviewHandMap = new HashMap<>(13);
 
     private HashMap<ImageView, Card> handMap = new HashMap<>(13);
@@ -78,7 +78,7 @@ public class GamingStageController implements Initializable {
     final double FIT_WIDTH = 102.9;
     final double FIT_HEIGHT = 142.2;
 
-    boolean reviewMode = true;
+    boolean reviewMode = false;
 
     public void deal() {
         Card card1 = new Card(Suit.HEARTS, Rank.TEN);
@@ -184,6 +184,7 @@ public class GamingStageController implements Initializable {
             trumpIv.setImage(SuitToImage(deck.getCurrentTrump()));
         }
         initCardViews();
+        tipLabel.setVisible(false);
         playButton.setVisible(false);
         updatePlayersInfo();
         updateLogger();
@@ -234,7 +235,7 @@ public class GamingStageController implements Initializable {
                             }
                         });
                     }
-                }, 2000);
+                }, 1500);
             }
         });
         playerList.get(2).psc.addPropertyChangeListener("setTurn_pro", new PropertyChangeListener() {
@@ -277,7 +278,7 @@ public class GamingStageController implements Initializable {
                                 }
                             });
                         }
-                    }, 2000);
+                    }, 1500);
                 }
             }
         });
@@ -319,7 +320,7 @@ public class GamingStageController implements Initializable {
                             }
                         });
                     }
-                }, 2000);
+                }, 1500);
             }
         });
 
@@ -334,6 +335,7 @@ public class GamingStageController implements Initializable {
     }
 
     public void click(ActionEvent event) {
+        tipLabel.setVisible(false);
         int turnIndex = turnList.indexOf(you);
         int isSelect = 0;
         for (ImageView imageView : p1ivList) {
@@ -377,35 +379,16 @@ public class GamingStageController implements Initializable {
                                 }
                             }, 100);
                         } else {
-                            Label label = new Label("The lead suit is " + suitToSymbol(deck.getCurrentLeadSuit()) + ", you have a " + suitToSymbol(deck.getCurrentLeadSuit()) + ", so you must play it.");
-                            Popup popup = new Popup();
-                            label.setStyle("-fx-background-color: white;-fx-font-family: 'Comic Sans MS';-fx-font-size: 14px;");
-                            popup.getContent().add(label);
-                            popup.setAutoFix(true);
-                            popup.setAutoHide(true);
-                            popup.setHideOnEscape(true);
-                            popup.setAnchorX(p1played.getScene().getWindow().getWidth() / 1.75);
-                            popup.setAnchorY(p1played.getScene().getWindow().getHeight() * 0.75);
-                            popup.show(gamingGridPane.getScene().getWindow());
+                            tipLabel.setText("The lead suit is " + suitToSymbol(deck.getCurrentLeadSuit()) + ", you have a " + suitToSymbol(deck.getCurrentLeadSuit()) + ", so you must play it.");
+                            tipLabel.setVisible(true);
                         }
                     }
                 }
             }
         }
         if (isSelect == 0) {
-            Label label = new Label("Please select a card! ");
-            Popup popup = new Popup();
-            label.setStyle("-fx-background-color: white;-fx-font-family: 'Comic Sans MS';-fx-font-size: 14px;-fx-pref-width: 180");
-            popup.getContent().add(label);
-            popup.setAutoFix(true);
-            popup.setAutoHide(true);
-            popup.setHideOnEscape(true);
-            System.out.println(p1played.getScene().getWindow().getWidth() + " " + p1played.getScene().getWindow().getHeight());
-            System.out.println(p1played.getLayoutX() + p1played.getX() + 180);
-            System.out.println(p1played.getLayoutY() + p1played.getY() + 200);
-            popup.setAnchorX(p1played.getScene().getWindow().getWidth() / 1.75);
-            popup.setAnchorY(p1played.getScene().getWindow().getHeight() * 0.75);
-            popup.show(gamingGridPane.getScene().getWindow());
+            tipLabel.setText("Please select a card ! ");
+            tipLabel.setVisible(true);
         }
     }
 
@@ -518,7 +501,7 @@ public class GamingStageController implements Initializable {
                         }
                 );
             }
-        }, 2000);
+        }, 1500);
     }
 
     public void removeEffectForTrick(ImageView iv1) {

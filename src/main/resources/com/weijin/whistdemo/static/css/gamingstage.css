@@ -184,3 +184,9 @@
     -fx-background-color: #ffffff;
     -fx-text-fill: #7271CF;
 }
+
+#tipLabel {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 18;
+    -fx-text-fill: black;
+}

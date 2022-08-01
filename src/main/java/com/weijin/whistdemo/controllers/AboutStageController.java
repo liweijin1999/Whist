@@ -20,9 +20,9 @@ public class AboutStageController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         aboutLabel.setText("""
                 Name of Game: Whist
-                Developer: Weijin
+                Developer: Weijin Li
                 Description: A project as the Msc. final project at The University of Manchester.
-                Version: beta v0.1
+                Version: beta v1.1          
                 Repo: https://github.com/liweijin1999/Whist
                                
                                 Thank you for playing! Have fun!
