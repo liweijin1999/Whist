@@ -7,15 +7,15 @@ module com.weijin.whistdemo {
     requires com.almasb.fxgl.all;
     requires java.desktop;
 
-    opens com.weijin.whistdemo to javafx.fxml;
-    exports com.weijin.whistdemo;
+    opens com.weijin.whist to javafx.fxml;
+    exports com.weijin.whist;
 
-    opens com.weijin.whistdemo.javafxComponents to javafx.fxml;
-    exports com.weijin.whistdemo.javafxComponents;
-    exports com.weijin.whistdemo.controllers;
-    opens com.weijin.whistdemo.controllers to javafx.fxml;
-    exports com.weijin.whistdemo.model;
-    opens com.weijin.whistdemo.model to javafx.fxml;
+    opens com.weijin.whist.javafxComponents to javafx.fxml;
+    exports com.weijin.whist.javafxComponents;
+    exports com.weijin.whist.controllers;
+    opens com.weijin.whist.controllers to javafx.fxml;
+    exports com.weijin.whist.model;
+    opens com.weijin.whist.model to javafx.fxml;
 
 
 }
