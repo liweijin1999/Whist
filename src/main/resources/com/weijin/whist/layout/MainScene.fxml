@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPanel" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.weijin.whist.controllers.MainStageController"
+            stylesheets="com/weijin/whist/static/css/mainstage.css">
+    <children>
+        <MenuBar prefWidth="${mainPanel.width}">
+            <Menu text="Menu">
+                <MenuItem onAction="#click" text="New Game"/>
+                <MenuItem onAction="#exit" text="Exit"/>
+            </Menu>
+            <Menu text="Help">
+                <MenuItem onAction="#showRules" text="Learn Rules"/>
+                <MenuItem onAction="#showAbout" text="About"/>
+            </Menu>
+        </MenuBar>
+        <Button fx:id="playBtn" layoutX="235.0" layoutY="330.0" onAction="#click" prefHeight="50.0" prefWidth="130.0"
+                text="PLAY"/>
+        <Slider fx:id="difficultySlider" blockIncrement="1.0" layoutX="263.0" layoutY="259.0" majorTickUnit="1.0"
+                max="3.0" min="1.0" minorTickCount="0" onDragDropped="#SliderDrag" onMouseClicked="#sliderClick"
+                prefHeight="51.0" prefWidth="203.0" showTickLabels="true" showTickMarks="true" value="1.0"/>
+        <ImageView fx:id="iconImg" fitHeight="187.0" fitWidth="315.0" layoutX="67.0" layoutY="56.0" pickOnBounds="true"
+                   preserveRatio="true"/>
+        <Label fx:id="diffLabel" layoutX="131.0" layoutY="254.0" prefHeight="30.0" prefWidth="110.0" text="Difficulty"
+               textAlignment="CENTER"/>
+        <Label fx:id="welcomeLabel" alignment="CENTER" layoutX="363.0" layoutY="101.0" prefHeight="97.0"
+               prefWidth="223.0"
+               text="Welcome to Whist "/>
+    </children>
+</AnchorPane>
