@@ -1,0 +1,192 @@
+.root {
+    -fx-background-color: #FFFFFF;
+}
+
+/*.table-view .column-header .label {*/
+/*    -fx-alignment: center;*/
+/*    -fx-font-family: "Arial";*/
+/*    -fx-text-fill: rgba(68, 68, 68, 0.96);*/
+/*    -fx-font-size: 12;*/
+/*}*/
+
+/*!*设置表格头高度*!*/
+/*.table-view > .column-header-background {*/
+/*    -fx-pref-height: 40;*/
+/*}*/
+
+/*!*设置每一列内容居中，每一行高度*!*/
+/*.table-row-cell {*/
+/*    -fx-cell-size: 45px;*/
+/*    -fx-alignment: CENTER;*/
+/*}*/
+
+/*#scoreBoardTableView {*/
+/*    -fx-table-cell-border-color: transparent;*/
+/*    -fx-border-color: white;*/
+/*    -fx-alignment: center;*/
+/*}*/
+
+/*!*设置每一列内容居中*!*/
+/*#scoreBoardTableView .table-column {*/
+/*    -fx-alignment: center;*/
+/*}*/
+
+.table-view:focused .filler {
+    -fx-border-color: #CBCAF2;
+}
+
+.table-view .column-header .label {
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+    /*-fx-background-color: #7271CF;*/
+    -fx-font-family: "Chalkduster";
+    -fx-text-fill: rgba(68, 68, 68, 0.96);
+    -fx-font-size: 13;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-control-inner-background: #000000;
+    /*-fx-border-color: #CBCAF2;*/
+}
+
+/*设置表格头高度*/
+.table-view > .column-header-background {
+    -fx-pref-height: 40;
+}
+
+/*设置每一列内容居中，每一行高度*/
+.table-row-cell {
+
+    -fx-cell-size: 40px;
+    -fx-alignment: CENTER;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #CBCAF2;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+}
+
+#scoreBoardTableView .table-row-cell:even {
+    -fx-background: #FDFDFE;
+}
+
+#scoreBoardTableView .table-row-cell:odd {
+    -fx-background: #EEEEFB;
+}
+
+#scoreBoardTableView .table-row-cell:empty {
+    -fx-background: white;
+}
+
+#scoreBoardTableView {
+    -fx-font-size: 13;
+    -fx-font-family: "Comic Sans MS";
+    -fx-table-cell-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-color: white;
+    -fx-alignment: center;
+}
+
+/*设置每一列内容居中*/
+#scoreBoardTableView .table-column {
+    /*-fx-border-color: black;*/
+    -fx-alignment: center;
+}
+
+.list-cell {
+    -fx-font-family: sans-serif;
+    -fx-font-size: 14;
+    -fx-cell-size: 26;
+}
+
+#logListView .list-cell:odd {
+    -fx-background: #FDFDFE;
+}
+
+#logListView .list-cell:even {
+    -fx-background: #EEEEFB;
+}
+
+#logListView .list-cell:empty {
+    -fx-background: white;
+}
+
+#logListView .list-cell:selected {
+    -fx-background-color: #CBCAF2;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+}
+
+.button {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #7271CF;
+    -fx-font-size: 16px;
+    -fx-font-family: "Comic Sans MS";
+    /*设置圆角*/
+    -fx-border-color: #7574D7;
+    -fx-background-radius: 70;
+    -fx-border-radius: 70;
+}
+
+/**设置Button  鼠标悬停样式**/
+.button:hover {
+    -fx-background-color: #7271CF;
+    -fx-text-fill: #ffffff;
+    /*设置圆角*/
+    -fx-border-color: #7574D7;
+}
+
+/**设置Button 点击鼠标样式**/
+.button:pressed {
+    /**设置边框背景颜色**/
+    -fx-border-color: red;
+}
+
+.id {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 15;
+}
+
+#trumpLabel {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 14;
+    -fx-text-fill: black;
+}
+
+.toggle-button {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #7271CF;
+    -fx-font-size: 13px;
+    -fx-font-family: "Comic Sans MS";
+    /*设置圆角*/
+    -fx-border-color: #7574D7;
+    -fx-background-radius: 70;
+    -fx-border-radius: 70;
+}
+
+.toggle-button:selected {
+    -fx-background-color: #7271CF;
+    -fx-text-fill: #ffffff;
+    /*设置圆角*/
+    -fx-border-color: #7574D7;
+}
+
+.toggle-button:hover {
+    -fx-background-color: #7271CF;
+    -fx-text-fill: #ffffff;
+    /*设置圆角*/
+    -fx-border-color: red;
+}
+
+.toggle-button:selected:hover {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #7271CF;
+}
+
+#tipLabel {
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 18;
+    -fx-text-fill: black;
+}
