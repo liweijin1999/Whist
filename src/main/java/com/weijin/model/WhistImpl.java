@@ -50,6 +50,9 @@ public class WhistImpl extends AbstractWhist {
     }
 
     public void setDifficulty(Integer difficulty) {
+        FileLogger obj = FileLogger.getFileLogger();
+        obj.write("Difficulty:  " + difficulty);
+        obj.close();
         this.difficulty = difficulty;
     }
 }

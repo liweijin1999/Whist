@@ -1,5 +1,7 @@
 package com.weijin.model;
 
+import com.weijin.singleton.FileLogger;
+
 import java.util.*;
 
 import static com.weijin.utils.helper.rankToSymbol;
@@ -201,9 +203,9 @@ public class Deck {
                 }
             }
         }
-//        FileLogger obj=FileLogger.getFileLogger();
-//        obj.write("\t\t"+player.getId()+" :"+suitToSymbol(thisRoundCard.getSuit())+" "+rankToSymbol(thisRoundCard.getRank()));
-//        obj.close();
+        FileLogger obj = FileLogger.getFileLogger();
+        obj.write("\t\t" + player.getId() + " :" + suitToSymbol(thisRoundCard.getSuit()) + " " + rankToSymbol(thisRoundCard.getRank()));
+        obj.close();
     }
 
     public HashMap<Player, Card> getBiggestThisRound() {
@@ -239,12 +241,12 @@ public class Deck {
                 msg = "\thighest this round: " + player.getId() + " : " + suitToSymbol(card.getSuit()) + " " + rankToSymbol(card.getRank());
             }
         }
-//        FileLogger obj = FileLogger.getFileLogger();
-//        obj.write(msg);
-//        if (cardsLeftOnDeck!=0) {
-//            obj.write("\tRound " + (14 - cardsLeftOnDeck / 4));
-//        }
-//        obj.close();
+        FileLogger obj = FileLogger.getFileLogger();
+        obj.write(msg);
+        if (cardsLeftOnDeck != 0) {
+            obj.write("\tRound " + (14 - cardsLeftOnDeck / 4));
+        }
+        obj.close();
         return biggestThisRound;
     }
 
@@ -255,9 +257,9 @@ public class Deck {
     public void dealCards(List<Player> players) {
         Dealer dealer = new Dealer();
         dealer.deal(players);
-//        FileLogger obj = FileLogger.getFileLogger();
-//        obj.write("\tround "+1);
-//        obj.close();
+        FileLogger obj = FileLogger.getFileLogger();
+        obj.write("\tround " + 1);
+        obj.close();
     }
 
     public void initNewDeckTurn() {

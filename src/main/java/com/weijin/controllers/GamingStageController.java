@@ -8,6 +8,7 @@ import com.weijin.RuleStage;
 import com.weijin.SettleStage;
 import com.weijin.javafxComponents.MyImageView;
 import com.weijin.model.*;
+import com.weijin.singleton.FileLogger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
