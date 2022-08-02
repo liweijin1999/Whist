@@ -217,7 +217,6 @@ public class Deck {
                 hasTrump = true;
             }
         }
-        String msg = null;
         for (Player player : thisRoundCards.keySet()) {
             int value = 0;
             Card card = thisRoundCards.get(player);
@@ -238,15 +237,8 @@ public class Deck {
                 max = value;
                 biggestThisRound.clear();
                 biggestThisRound.put(player, card);
-                msg = "\thighest this round: " + player.getId() + " : " + suitToSymbol(card.getSuit()) + " " + rankToSymbol(card.getRank());
             }
         }
-        FileLogger obj = FileLogger.getFileLogger();
-        obj.write(msg);
-        if (cardsLeftOnDeck != 0) {
-            obj.write("\tRound " + (14 - cardsLeftOnDeck / 4));
-        }
-        obj.close();
         return biggestThisRound;
     }
 

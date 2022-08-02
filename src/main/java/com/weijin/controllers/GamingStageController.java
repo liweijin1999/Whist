@@ -737,7 +737,13 @@ public class GamingStageController implements Initializable {
                 setEffectByTurn(playerList.indexOf(winner));
                 System.out.println("new turnList: " + turnList.get(0).getId() + " " + turnList.get(1).getId() + " " + turnList.get(2).getId() + " " + turnList.get(3).getId());
                 System.out.println("new order:" + turnList.get(0).isTurn() + " " + turnList.get(1).isTurn() + " " + turnList.get(2).isTurn() + " " + turnList.get(3).isTurn());
-
+                FileLogger obj = FileLogger.getFileLogger();
+                String msg = "\thighest this round: " + winner.getId() + " : " + suitToSymbol(biggestCard.get(winner).getSuit()) + " " + rankToSymbol(biggestCard.get(winner).getRank());
+                obj.write(msg);
+                if (deck.cardsLeftOnDeck != 0) {
+                    obj.write("\tRound " + (14 - deck.cardsLeftOnDeck / 4));
+                }
+                obj.close();
             } else {
                 int uAndTeammateTricks = playerList.get(0).getTricks().size() + playerList.get(2).getTricks().size();
                 int opponentTricks = playerList.get(1).getTricks().size() + playerList.get(3).getTricks().size();
