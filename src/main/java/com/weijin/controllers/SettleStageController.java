@@ -5,6 +5,7 @@ import com.weijin.MainStage;
 import com.weijin.RuleStage;
 import com.weijin.model.SettleScoreBoard;
 import com.weijin.model.WhistImpl;
+import com.weijin.singleton.FileLogger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,9 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import static com.weijin.utils.helper.rankToSymbol;
+import static com.weijin.utils.helper.suitToSymbol;
 
 public class SettleStageController implements Initializable {
     public Label congratsLabel;
@@ -90,7 +94,9 @@ public class SettleStageController implements Initializable {
         scoreBoardTable.setItems(scoreBoardData);
         SettleScoreBoard scoreBoard = new SettleScoreBoard(scoreMap.get("deckRound"), scoreMap.get("uAndTeammateScore"), scoreMap.get("opponentScore"), deckWinnersName);
         SettleScoreBoard total = new SettleScoreBoard("Total", scoreMap.get("uAndTeammateScoreTotal"), scoreMap.get("opponentScoreTotal"), totalWinnersName);
-
+        FileLogger obj = FileLogger.getFileLogger();
+        obj.write("\nYourTeam Points:" + scoreMap.get("uAndTeammateScoreTotal") + "\nAdversaries' Points:" + scoreMap.get("opponentScoreTotal") + "\n");
+        obj.close();
         if (scoreBoardData.size() > 1) {
             scoreBoardData.remove(scoreBoardData.size() - 1);
         }

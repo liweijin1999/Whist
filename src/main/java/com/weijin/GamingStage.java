@@ -25,14 +25,16 @@ public class GamingStage extends Application {
         GamingStageController target = loader.getController();
         target.initController(whist);
         primaryStage.setTitle("Whist (beta1.0)");
-        String url="/icons/img.png";
-        Image icon= new Image(url);
+        String url = "/icons/img.png";
+        Image icon = new Image(url);
         primaryStage.getIcons().add(icon);
         Scene scene = new Scene(root);
         String css = this.getClass().getResource("/static/css/common.css").toExternalForm();
         scene.getStylesheets().add(css);
         primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
+        primaryStage.setMinWidth(1280);//最小宽度
+        primaryStage.setMinHeight(880);//最小高度
+//        primaryStage.setFullScreen(true);
 //        primaryStage.setResizable(false);
         primaryStage.show();
     }

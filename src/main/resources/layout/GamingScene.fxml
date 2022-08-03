@@ -26,7 +26,7 @@
 <!-- 自定义控件 （使用sceneBuilder时先注释）-->
 <?import com.weijin.javafxComponents.MyImageView?>
 
-<GridPane fx:id="gamingGridPane" minHeight="860.0" minWidth="1280.0" prefHeight="860.0" prefWidth="1280.0"
+<GridPane fx:id="gamingGridPane" minHeight="870.0" minWidth="1280.0" prefHeight="870.0" prefWidth="1280.0"
           stylesheets="/static/css/gamingstage.css" xmlns="http://javafx.com/javafx/18"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.weijin.controllers.GamingStageController">
     <columnConstraints>
@@ -66,6 +66,15 @@
                GridPane.rowSpan="3" GridPane.valignment="CENTER">
         <GridPane.margin>
             <Insets right="10.0" top="30.0"/>
+        </GridPane.margin>
+    </ImageView>
+    <ImageView fx:id="avatear0" fitHeight="62.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true"
+               GridPane.columnIndex="4" GridPane.rowIndex="7">
+        <image>
+            <Image url="@../static/pictures/Cat.jpeg"/>
+        </image>
+        <GridPane.margin>
+            <Insets bottom="20.0"/>
         </GridPane.margin>
     </ImageView>
     <AnchorPane fx:id="p1handPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
@@ -189,7 +198,7 @@
     </AnchorPane>
     <TableView fx:id="scoreBoardTableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="130.0"
                prefWidth="210.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6"
-               GridPane.valignment="CENTER">
+               GridPane.valignment="BOTTOM">
         <columns>
             <TableColumn fx:id="team" editable="false" prefWidth="135.0" resizable="false" sortable="false"
                          text="Team"/>
@@ -211,24 +220,26 @@
         </GridPane.margin>
     </Button>
     <AnchorPane fx:id="p1TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="121.0" prefWidth="320.0"
-                GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="6"
-                GridPane.rowSpan="2" GridPane.valignment="BOTTOM">
+                GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS"
+                GridPane.rowIndex="6" GridPane.rowSpan="2" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
         <GridPane.margin>
             <Insets bottom="25.0"/>
         </GridPane.margin>
     </AnchorPane>
-    <AnchorPane fx:id="p2TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="236.0" prefWidth="145.0"
-                GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="3" GridPane.valignment="CENTER">
+    <AnchorPane fx:id="p2TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="196.0" prefWidth="145.0"
+                GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.rowSpan="3"
+                GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
         <GridPane.margin>
             <Insets left="5.0" top="30.0"/>
         </GridPane.margin>
     </AnchorPane>
-    <AnchorPane fx:id="p3TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="92.0" prefWidth="452.0"
-                GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.rowIndex="1"
-                GridPane.valignment="CENTER"/>
-    <AnchorPane fx:id="p4TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="356.0" prefWidth="141.0"
-                GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4"
-                GridPane.rowSpan="3" GridPane.valignment="BOTTOM">
+    <AnchorPane fx:id="p3TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                minWidth="-Infinity" prefHeight="92.0" prefWidth="452.0" GridPane.columnIndex="3"
+                GridPane.columnSpan="3" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
+                GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS"/>
+    <AnchorPane fx:id="p4TricksPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="285.0" prefWidth="141.0"
+                GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS"
+                GridPane.rowIndex="4" GridPane.rowSpan="3" GridPane.valignment="BOTTOM" GridPane.vgrow="ALWAYS">
         <GridPane.margin>
             <Insets right="15.0"/>
         </GridPane.margin>

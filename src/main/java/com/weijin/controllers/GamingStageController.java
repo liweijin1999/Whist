@@ -8,6 +8,7 @@ import com.weijin.RuleStage;
 import com.weijin.SettleStage;
 import com.weijin.javafxComponents.MyImageView;
 import com.weijin.model.*;
+import com.weijin.singleton.FileLogger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -656,7 +657,6 @@ public class GamingStageController implements Initializable {
             System.out.println(winner.getId() + " biggest: " + biggestCard.get(winner).getSuit() + " " + biggestCard.get(winner).getRank());
             winner.addTrick(biggestCard.get(winner));
             if (playerList.get(0).equals(winner)) {
-
                 MyImageView trickIv = (MyImageView) p1played.clone();
                 if (temp_trick == null) {
                     temp_trick = trickIv;
@@ -667,33 +667,6 @@ public class GamingStageController implements Initializable {
                     temp_trick = trickIv;
                     setEffectForTrick(trickIv);
                 }
-//                ImageView targetIv=new ImageView();
-//                System.out.println(trickIv.localToScene(trickIv.getLayoutBounds()).getMinX());
-//                targetIv.setFitWidth(10.29 * 5);
-//                targetIv.setFitHeight(14.22 * 5);
-//                p1TricksPane.setLeftAnchor(targetIv, 0.0 + (10.29 * 3 * winner.getTricks().size() - 1));
-//                p1TricksPane.setBottomAnchor(targetIv, 0.0);
-//                p1TricksPane.getChildren().add(trickIv);
-//                System.out.println(targetIv.localToScene(targetIv.getLayoutBounds()).getMinX());
-//                System.out.println(targetIv.localToScene(targetIv.getLayoutBounds()).getMinY());
-//
-//                KeyValue kv1x = new KeyValue(trickIv.translateXProperty(), 0);
-//                KeyValue kv1y = new KeyValue(trickIv.translateYProperty(), 0);
-//                KeyValue kv1sx = new KeyValue(trickIv.scaleXProperty(), 1);
-//                KeyValue kv1sy = new KeyValue(trickIv.scaleYProperty(), 1);
-//                KeyFrame kf1 = new KeyFrame(Duration.seconds(0), kv1x, kv1y, kv1sx, kv1sy);
-//
-//                KeyValue kv2x = new KeyValue(trickIv.translateXProperty(), targetIv.localToScene(targetIv.getLayoutBounds()).getMinX() );
-//                KeyValue kv2y = new KeyValue(trickIv.translateYProperty(), targetIv.localToScene(targetIv.getLayoutBounds()).getMinY() );
-//                KeyValue kv2sx = new KeyValue(trickIv.scaleXProperty(), 0.5);
-//                KeyValue kv2sy = new KeyValue(trickIv.scaleYProperty(), 0.5);
-//                KeyFrame kf2 = new KeyFrame(Duration.seconds(2), kv2x, kv2y, kv2sx, kv2sy);
-//
-//                Timeline timeline = new Timeline();
-//                timeline.getKeyFrames().addAll(kf1, kf2);
-//
-//                timeline.play();
-//                System.out.println(trickIv.localToScene(trickIv.getLayoutBounds()).getMinX());
                 trickIv.setFitWidth(10.29 * 5);
                 trickIv.setFitHeight(14.22 * 5);
                 p1TricksPane.setLeftAnchor(trickIv, 0.0 + (10.29 * 3 * winner.getTricks().size() - 1));
@@ -764,7 +737,13 @@ public class GamingStageController implements Initializable {
                 setEffectByTurn(playerList.indexOf(winner));
                 System.out.println("new turnList: " + turnList.get(0).getId() + " " + turnList.get(1).getId() + " " + turnList.get(2).getId() + " " + turnList.get(3).getId());
                 System.out.println("new order:" + turnList.get(0).isTurn() + " " + turnList.get(1).isTurn() + " " + turnList.get(2).isTurn() + " " + turnList.get(3).isTurn());
-
+                FileLogger obj = FileLogger.getFileLogger();
+                String msg = "\thighest this round: " + winner.getId() + " : " + suitToSymbol(biggestCard.get(winner).getSuit()) + " " + rankToSymbol(biggestCard.get(winner).getRank());
+                obj.write(msg);
+                if (deck.cardsLeftOnDeck != 0) {
+                    obj.write("\tRound " + (14 - deck.cardsLeftOnDeck / 4));
+                }
+                obj.close();
             } else {
                 int uAndTeammateTricks = playerList.get(0).getTricks().size() + playerList.get(2).getTricks().size();
                 int opponentTricks = playerList.get(1).getTricks().size() + playerList.get(3).getTricks().size();
