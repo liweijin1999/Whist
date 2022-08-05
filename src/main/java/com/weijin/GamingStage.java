@@ -4,13 +4,20 @@ import com.weijin.controllers.GamingStageController;
 import com.weijin.model.Player;
 import com.weijin.model.WhistImpl;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
+import java.util.Optional;
 
 public class GamingStage extends Application {
     Stage stage = new Stage();
@@ -36,6 +43,28 @@ public class GamingStage extends Application {
         primaryStage.setMinHeight(880);//最小高度
 //        primaryStage.setFullScreen(true);
 //        primaryStage.setResizable(false);
+        //为当前窗口添加关闭监听
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setHeaderText("Exit?");
+                alert.setContentText("Are you sure to exit this application?\n\nWarning: All of your progress will be lost.");
+                Button ok = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+                ok.setText("Confirm");
+                ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Cancel");
+                //显示对话框
+                Optional<ButtonType> result = alert.showAndWait();
+                //如果点击OK
+                if (result.get() == ButtonType.OK){
+                    // ... user chose OK
+                    primaryStage.close();
+                    //否则
+                } else {
+                    event.consume();
+                }
+            }
+        });
         primaryStage.show();
     }
 

@@ -1,15 +1,20 @@
 package com.weijin;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.Optional;
 
 public class MainStage extends Application {
     Stage stage = new Stage();
@@ -59,8 +64,9 @@ public class MainStage extends Application {
         //test
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
+        //为当前窗口添加关闭监听
+        primaryStage.setOnCloseRequest(event -> primaryStage.close());
         primaryStage.show();
-
     }
 
     public void showWindow() throws Exception {
