@@ -81,6 +81,7 @@ public class GamingStageController implements Initializable {
     boolean reviewMode = false;
 
     public void deal() {
+        //测试用例
         Card card1 = new Card(Suit.HEARTS, Rank.TEN);
         Card card2 = new Card(Suit.HEARTS, Rank.SEVEN);
         Card card3 = new Card(Suit.SPADES, Rank.ACE);
@@ -176,10 +177,8 @@ public class GamingStageController implements Initializable {
             trumpLabel.setText("Trump This Round:  ");
             trumpSuitIcon.setText(suitToSymbol(deck.getCurrentTrump()));
             switch (deck.getCurrentTrump()) {
-                case SPADES -> trumpSuitIcon.setStyle("-fx-text-fill: black;-fx-font-size: 16;");
-                case HEARTS -> trumpSuitIcon.setStyle("-fx-text-fill: red;-fx-font-size: 16;");
-                case DIAMONDS -> trumpSuitIcon.setStyle("-fx-text-fill: red;-fx-font-size: 16;");
-                case CLUBS -> trumpSuitIcon.setStyle("-fx-text-fill: black;-fx-font-size: 16;");
+                case SPADES, CLUBS -> trumpSuitIcon.setStyle("-fx-text-fill: black;-fx-font-size: 16;");
+                case HEARTS, DIAMONDS -> trumpSuitIcon.setStyle("-fx-text-fill: red;-fx-font-size: 16;");
             }
             trumpIv.setImage(SuitToImage(deck.getCurrentTrump()));
         }
@@ -188,8 +187,8 @@ public class GamingStageController implements Initializable {
         playButton.setVisible(false);
         updatePlayersInfo();
         updateLogger();
+
         // 监听轮次的变化，自己的出牌函数在click(),监听器改变按钮状态
-//        System.out.println(playerList.get(0).psc.getPropertyChangeListeners().length);
         for (Player player : playerList) {
             if (player.psc.getPropertyChangeListeners().length > 0) {
                 player.psc.removePropertyChangeListener(player.psc.getPropertyChangeListeners()[0]);
@@ -197,132 +196,9 @@ public class GamingStageController implements Initializable {
             player.setTricks(new ArrayList<>());
         }
         playerList.get(0).psc.addPropertyChangeListener("setTurn_pro", evt -> playButton.setVisible((Boolean) evt.getNewValue()));
-//        System.out.println(playerList.get(0).psc.getPropertyChangeListeners().length);
-        playerList.get(1).psc.addPropertyChangeListener("setTurn_pro", evt -> {
-            if ((Boolean) evt.getNewValue()) {
-                //给出牌的动画加个延迟
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        Platform.runLater(() -> {
-                            int turnIndex = turnList.indexOf(playerList.get(1));
-                            Card AIcard = null;
-                            try {
-                                AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
-                            } catch (IOException | ClassNotFoundException e) {
-                                throw new RuntimeException(e);
-                            }
-                            logger.add(playerList.get(1).getId() + " played:   " + suitToSymbol(AIcard.getSuit()) + " " + rankToSymbol(AIcard.getRank()));
-                            System.out.println(playerList.get(1).getId() + " played: " + AIcard.getSuit() + " " + AIcard.getRank());
-                            p2played.setImage(CardToImage(AIcard));
-                            if (reviewMode) {
-                                //重新排序
-                                for (ImageView iv : reviewHandMap.keySet()) {
-                                    if (reviewHandMap.get(iv).getSuit() == AIcard.getSuit() && reviewHandMap.get(iv).getRank() == AIcard.getRank()) {
-                                        iv.imageProperty().set(null);
-                                        break;
-                                    }
-                                }
-                            } else {
-                                HandIvSetNullAfterThrowCard(playerList.get(1));
-                            }
-                            updatePlayersInfo();
-                            if (turnIndex == 3) {
-                                refreshPlayedViews();
-                            } else {
-                                playerList.get(2).setTurn(true);
-                                setEffectByTurn(2);
-                            }
-                        });
-                    }
-                }, 1500);
-            }
-        });
-        playerList.get(2).psc.addPropertyChangeListener("setTurn_pro", new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ((Boolean) evt.getNewValue()) {
-                    new Timer().schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            Platform.runLater(() -> {
-                                int turnIndex = turnList.indexOf(playerList.get(2));
-                                Card AIcard = null;
-                                try {
-                                    AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                } catch (ClassNotFoundException e) {
-                                    throw new RuntimeException(e);
-                                }
-                                logger.add(playerList.get(2).getId() + " played:   " + suitToSymbol(AIcard.getSuit()) + " " + rankToSymbol(AIcard.getRank()));
-                                System.out.println(playerList.get(2).getId() + " played: " + AIcard.getSuit() + " " + AIcard.getRank());
-                                p3played.setImage(CardToImage(AIcard));
-                                if (reviewMode) {
-                                    //重新排序
-                                    for (ImageView iv : reviewHandMap.keySet()) {
-                                        if (reviewHandMap.get(iv).getSuit() == AIcard.getSuit() && reviewHandMap.get(iv).getRank() == AIcard.getRank()) {
-                                            iv.imageProperty().set(null);
-                                            break;
-                                        }
-                                    }
-                                } else {
-                                    HandIvSetNullAfterThrowCard(playerList.get(2));
-                                }
-                                updatePlayersInfo();
-                                if (turnIndex == 3) {
-                                    refreshPlayedViews();
-                                } else {
-                                    playerList.get(3).setTurn(true);
-                                    setEffectByTurn(3);
-                                }
-                            });
-                        }
-                    }, 1500);
-                }
-            }
-        });
-        playerList.get(3).psc.addPropertyChangeListener("setTurn_pro", evt -> {
-            if ((Boolean) evt.getNewValue()) {
-                new Timer().schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        Platform.runLater(() -> {
-                            int turnIndex = turnList.indexOf(playerList.get(3));
-                            Card AIcard = null;
-                            try {
-                                AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            } catch (ClassNotFoundException e) {
-                                throw new RuntimeException(e);
-                            }
-                            logger.add(playerList.get(3).getId() + " played:   " + suitToSymbol(AIcard.getSuit()) + " " + rankToSymbol(AIcard.getRank()));
-                            System.out.println(playerList.get(3).getId() + " played: " + AIcard.getSuit() + " " + AIcard.getRank());
-                            p4played.setImage(CardToImage(AIcard));
-                            if (reviewMode) {
-                                //重新排序
-                                for (ImageView iv : reviewHandMap.keySet()) {
-                                    if (reviewHandMap.get(iv).getSuit() == AIcard.getSuit() && reviewHandMap.get(iv).getRank() == AIcard.getRank()) {
-                                        iv.imageProperty().set(null);
-                                        break;
-                                    }
-                                }
-                            } else {
-                                HandIvSetNullAfterThrowCard(playerList.get(3));
-                            }
-                            updatePlayersInfo();
-                            if (turnIndex == 3) {
-                                refreshPlayedViews();
-                            } else {
-                                playerList.get(0).setTurn(true);
-                                setEffectByTurn(0);
-                            }
-                        });
-                    }
-                }, 1500);
-            }
-        });
+        for (int playerIndex = 1; playerIndex <= 3; playerIndex++) {
+            addPropertyChangeListenerForAI(playerIndex);
+        }
 
         logger.add("-------------------------   Round " + round++ + "   -------------------------");
         turnList.get(0).setTurn(true);
@@ -332,6 +208,65 @@ public class GamingStageController implements Initializable {
             break;
         }
 
+    }
+
+    private void addPropertyChangeListenerForAI(int index) {
+        //
+        playerList.get(index).psc.addPropertyChangeListener("setTurn_pro", evt -> {
+            if ((Boolean) evt.getNewValue()) {
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(() -> {
+                            int turnIndex = turnList.indexOf(playerList.get(index));
+                            Card AIcard;
+                            try {
+                                AIcard = AIthrowCard(turnIndex, whist.getDifficulty());
+                            } catch (IOException | ClassNotFoundException e) {
+                                throw new RuntimeException(e);
+                            }
+                            logger.add(playerList.get(index).getId() + " played:   " + suitToSymbol(AIcard.getSuit()) + " " + rankToSymbol(AIcard.getRank()));
+                            System.out.println(playerList.get(index).getId() + " played: " + AIcard.getSuit() + " " + AIcard.getRank());
+                            switch (index) {
+                                case 1 -> p2played.setImage(CardToImage(AIcard));
+                                case 2 -> p3played.setImage(CardToImage(AIcard));
+                                case 3 -> p4played.setImage(CardToImage(AIcard));
+                            }
+                            if (reviewMode) {
+                                //重新排序
+                                for (ImageView iv : reviewHandMap.keySet()) {
+                                    if (reviewHandMap.get(iv).getSuit() == AIcard.getSuit() && reviewHandMap.get(iv).getRank() == AIcard.getRank()) {
+                                        iv.imageProperty().set(null);
+                                        break;
+                                    }
+                                }
+                            } else {
+                                HandIvSetNullAfterThrowCard(playerList.get(index));
+                            }
+                            updatePlayersInfo();
+                            if (turnIndex == 3) {
+                                refreshPlayedViews();
+                            } else {
+                                switch (index) {
+                                    case 1 -> {
+                                        playerList.get(2).setTurn(true);
+                                        setEffectByTurn(2);
+                                    }
+                                    case 2 -> {
+                                        playerList.get(3).setTurn(true);
+                                        setEffectByTurn(3);
+                                    }
+                                    case 3 -> {
+                                        playerList.get(0).setTurn(true);
+                                        setEffectByTurn(0);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }, 1500);
+            }
+        });
     }
 
     public void click(ActionEvent event) {
@@ -479,9 +414,7 @@ public class GamingStageController implements Initializable {
     }
 
     public void refreshPlayedViews() {
-
         new Timer().schedule(new TimerTask() {
-
             @Override
             public void run() {
                 Platform.runLater(() -> {
@@ -501,7 +434,7 @@ public class GamingStageController implements Initializable {
                         }
                 );
             }
-        }, 1500);
+        }, 2000);
     }
 
     public void removeEffectForTrick(ImageView iv1) {
@@ -646,6 +579,7 @@ public class GamingStageController implements Initializable {
     }
 
     private ImageView temp_trick;
+
     public void endOneRound() throws CloneNotSupportedException, IOException {
         HashMap<Player, Card> biggestCard = deck.getBiggestThisRound();
 
@@ -728,22 +662,21 @@ public class GamingStageController implements Initializable {
             }
             deck.resetThisRoundCards();
             if (!deck.isDeckEmpty()) {
-                //测试跳转结算界面
-//            if (deck.isDeckEmpty()) {
+                FileLogger obj = FileLogger.getFileLogger();
+                String msg = "\thighest this round: " + winner.getId() + " : " + suitToSymbol(biggestCard.get(winner).getSuit()) + " " + rankToSymbol(biggestCard.get(winner).getRank());
+                obj.write(msg);
+                obj.write("\tRound " + (14 - deck.cardsLeftOnDeck / 4));
+                obj.close();
                 System.out.println("deck not empty" + deck.cardsLeftOnDeck);
                 System.out.println("winner: " + winner.getId() + " " + playerList.indexOf(winner));
+                for(Player player: playerList){
+                    player.setTurn(false);
+                }
                 deck.setTurnListByStarter(playerList.indexOf(winner), true);
                 turnList = deck.getTurnList();
                 setEffectByTurn(playerList.indexOf(winner));
                 System.out.println("new turnList: " + turnList.get(0).getId() + " " + turnList.get(1).getId() + " " + turnList.get(2).getId() + " " + turnList.get(3).getId());
                 System.out.println("new order:" + turnList.get(0).isTurn() + " " + turnList.get(1).isTurn() + " " + turnList.get(2).isTurn() + " " + turnList.get(3).isTurn());
-                FileLogger obj = FileLogger.getFileLogger();
-                String msg = "\thighest this round: " + winner.getId() + " : " + suitToSymbol(biggestCard.get(winner).getSuit()) + " " + rankToSymbol(biggestCard.get(winner).getRank());
-                obj.write(msg);
-                if (deck.cardsLeftOnDeck != 0) {
-                    obj.write("\tRound " + (14 - deck.cardsLeftOnDeck / 4));
-                }
-                obj.close();
             } else {
                 int uAndTeammateTricks = playerList.get(0).getTricks().size() + playerList.get(2).getTricks().size();
                 int opponentTricks = playerList.get(1).getTricks().size() + playerList.get(3).getTricks().size();
