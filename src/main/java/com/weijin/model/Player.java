@@ -217,7 +217,7 @@ public class Player {
             weakestSuit = Suit.SPADES;
         }
         askingForTrump = strongestSuit == trumpSuit;
-        System.out.println(trumpSuit + " " + askingForTrump + "Strongest suit: " + strongestSuit);
+//        System.out.println(trumpSuit + " " + askingForTrump + "Strongest suit: " + strongestSuit);
     }
 
     public void throwCard(Card card) {

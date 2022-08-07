@@ -1,4 +1,4 @@
-package com.weijin;
+package com.weijin.stages;
 
 import com.weijin.controllers.GamingStageController;
 import com.weijin.controllers.SettleStageController;

@@ -1,8 +1,8 @@
 package com.weijin.controllers;
 
-import com.weijin.AboutStage;
-import com.weijin.GamingStage;
-import com.weijin.RuleStage;
+import com.weijin.stages.AboutStage;
+import com.weijin.stages.GamingStage;
+import com.weijin.stages.RuleStage;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 

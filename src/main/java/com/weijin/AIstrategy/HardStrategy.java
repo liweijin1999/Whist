@@ -269,14 +269,14 @@ public class HardStrategy implements Strategy {
                     sameValCard = cardList.get(sameValCardPos);
                 }
                 if (sameValCardPos == 0) {
-                    System.out.println("test000000");
+//                    System.out.println("test000000");
                     return sameValCardPos;
                 }
                 int bestVal = sameValCard.getValue();
                 int secVal = cardList.get(sameValCardPos - 1).getValue();
                 for (int i = bestVal - 1; i > secVal; i--) {
                     if (containsRank(CurrentDeck.getAllCardLists().get(getIndexBySuit(bestCard.getSuit())), Rank.getRank(i))) {
-                        System.out.println("test111111");
+//                        System.out.println("test111111");
                         return sameValCardPos;
                     }
                 }
@@ -284,12 +284,12 @@ public class HardStrategy implements Strategy {
                 sameValCard = cardList.get(sameValCardPos);
                 if (containsSequence(cardList, sameValCard.getRank()) > 1) {
                     sameValCardPos = sameValCardPos + 1 - containsSequence(cardList, sameValCard.getRank());
-                    System.out.println("test222222");
+//                    System.out.println("test222222");
                     return sameValCardPos;
                 }
             }
         }
-        System.out.println("test333333");
+//        System.out.println("test333333");
         return sameValCardPos;
     }
 
@@ -353,7 +353,7 @@ public class HardStrategy implements Strategy {
             if (card.getSuit().equals(CurrentDeck.getCurrentTrump())) {
                 // trump card gets more weight
                 if ((trumpSuitList.size() == 4 && large >= 3) || card.getValue() > 10) {
-                    System.out.println("debug code: 10007");
+//                    System.out.println("debug code: 10007");
                     weight -= 1;
                 } else {
                     weight += 14;
@@ -361,7 +361,7 @@ public class HardStrategy implements Strategy {
             }
             if (strongestSuitList != null && strongestSuitList.contains(card)) {
                 // strongest suit card gets less weight
-                System.out.println("debug code: 10009");
+//                System.out.println("debug code: 10009");
                 weight -= 10;
             }
             for (List<Card> suitList : shortestSuitLists) {
@@ -425,7 +425,7 @@ public class HardStrategy implements Strategy {
             boolean bringIn;
             if (strongestSuit != trumpSuit) {
                 bringIn = hasBringIn(strongestSuitList, trumpSuitList);
-                System.out.println("bring in: " + bringIn);
+//                System.out.println("bring in: " + bringIn);
                 if (bringIn) {
                     return strongestSuitList.get(strongestSuitList.size() - 1);
                 }
@@ -438,7 +438,7 @@ public class HardStrategy implements Strategy {
                     }
                 }
                 bringIn = hasBringIn(strongestPlainSuitList, trumpSuitList);
-                System.out.println("bring in: " + bringIn);
+//                System.out.println("bring in: " + bringIn);
                 if (bringIn) {
                     return strongestSuitList.get(strongestPlainSuitList.size() - 1);
                 }
@@ -475,14 +475,14 @@ public class HardStrategy implements Strategy {
 
             if (partner.TrumpSignal == AIThinking.CONFIRMED) {
                 if (trumpSuitList.size() > 2) {
-                    System.out.println("debug code: 10004");
+//                    System.out.println("debug code: 10004");
                     return trumpSuitList.get(trumpSuitList.size() - 1);
                 }
             }
             if (you.isAskingForTrump()) {
                 if (containsRank(trumpSuitList, Rank.ACE)
                         && trumpSuitList.size() >= 4) {
-                    System.out.println("debug code: 10017");
+//                    System.out.println("debug code: 10017");
                     if (containsRank(trumpSuitList, Rank.KING)
                             && ((containsRank(trumpSuitList, Rank.QUEEN) && (containsRank(trumpSuitList, Rank.JACK)))
                             || (containsRank(trumpSuitList, Rank.JACK) && (containsRank(trumpSuitList, Rank.TEN)))
@@ -522,7 +522,7 @@ public class HardStrategy implements Strategy {
                     }
                 }
                 if (trumpSuitList.size() >= 6) {
-                    System.out.println("debug code: 10015");
+//                    System.out.println("debug code: 10015");
                     return trumpSuitList.get(0);
                 }
             }
@@ -647,9 +647,12 @@ public class HardStrategy implements Strategy {
 
             }
             for (List<Card> suitList : suitListsByLengthReversed) {
-                System.out.println("debug code: 10003");
+                if (suitList.size()==0){
+                    continue;
+                }
+//                System.out.println("debug code: 10003");
                 if (suitList.get(0).getSuit() == opponent1.strongSuitSignal || suitList.get(0).getSuit() == opponent2.strongSuitSignal) {
-                    System.out.println("debug code: 10016");
+//                    System.out.println("debug code: 10016");
                     continue;
                 }
                 return suitList.get(suitList.size() - 1);
@@ -659,7 +662,7 @@ public class HardStrategy implements Strategy {
             // no trump
             List<Card> trumpSuitList = null;
             boolean bringIn = hasBringIn(strongestSuitList, trumpSuitList);
-            System.out.println("bring in: " + bringIn);
+//            System.out.println("bring in: " + bringIn);
             if (bringIn && strongestSuit != trumpSuit) {
                 return strongestSuitList.get(strongestSuitList.size() - 1);
             }
@@ -907,7 +910,6 @@ public class HardStrategy implements Strategy {
         HashMap<Player, Card> thisRoundCards = CurrentDeck.getThisRoundCards();
         boolean partnerWon = false;
         boolean NoTrumpThisRound = CurrentDeck.getCurrentTrump() == null;
-        HashMap<Card, Integer> cardWeightMap = new HashMap<>();
         List<List<Card>> weakestSuitLists = getWeakestSuitLists();
         List<List<Card>> shortestSuitLists = getShortestSuitLists();
         List<List<Card>> longestSuitLists = getLongestSuitLists();
@@ -933,11 +935,11 @@ public class HardStrategy implements Strategy {
             // if have larger card, play the biggest, else play the smallest
             if (firstRoundOfSuitLed) {
                 if (partner.strongSuitSignal == null) {
-                    System.out.println("debug code: 10010");
+//                    System.out.println("debug code: 10010");
                     partner.strongSuitSignal = leadSuit;
                 }
                 if (leadSuit == CurrentDeck.getCurrentTrump() && partner.TrumpSignal != AIThinking.CONFIRMED && partner.isAskingForTrump()) {
-                    System.out.println("debug code: 10011");
+//                    System.out.println("debug code: 10011");
                     partner.TrumpSignal = AIThinking.CONFIRMED;
                 }
             }
@@ -969,13 +971,23 @@ public class HardStrategy implements Strategy {
                     if (!finesse) {
                         return getCardByRank(leadSuitList, Rank.ACE);
                     } else {
-                        System.out.println("finesse code: 30002");
+//                        System.out.println("finesse code: 30002");
                         return getCardByRank(leadSuitList, Rank.QUEEN);
                     }
                 }
                 if (partner.strongSuitSignal != leadSuit) {
+                    if (thisRoundCards.get(partner).getValue() == biggestCard.getValue()) {
+                        if (leadSuitList.get(leadSuitList.size() - 1).getValue()-thisRoundCards.get(partner).getValue()==1){
+                            return leadSuitList.get(0);
+                        }
+                    }
                     return leadSuitList.get(sameValAsBestCardPos(leadSuitList));
                 } else {
+                    if (thisRoundCards.get(partner).getValue() == biggestCard.getValue()) {
+                        if (leadSuitList.get(leadSuitList.size() - 1).getValue()-thisRoundCards.get(partner).getValue()==1){
+                            return leadSuitList.get(0);
+                        }
+                    }
                     return leadSuitList.get(leadSuitList.size() - 1);
                 }
             }
@@ -1046,7 +1058,7 @@ public class HardStrategy implements Strategy {
                     }
                     return leadSuitList.get(0);
                 } else {
-                    if (otherCardCollection.size() != 0 && leadSuit == partner.strongSuitSignal) {
+                    if (otherCardCollection.size()>0&&otherCardCollection.size() <=4 && leadSuit == partner.strongSuitSignal) {
                         if (leadSuitList.get(leadSuitList.size() - 1).getValue() >= 10 &&
                                 leadSuitList.get(leadSuitList.size() - 1).getValue() > otherCardCollection.get(otherCardCollection.size() - 1).getValue() &&
                                 leadSuitList.size() >= 2) {
@@ -1143,7 +1155,7 @@ public class HardStrategy implements Strategy {
                     for (Card card : leadSuitList) {
                         assert biggestCard != null;
                         if (biggestCard.getSuit() != leadSuit && biggestCard.getSuit() == CurrentDeck.getCurrentTrump()) {
-                            System.out.println("debug code: 40001");
+//                            System.out.println("debug code: 40001");
                         }
                         if (biggestCard.getSuit() == leadSuit) {
                             if (card.getValue() > biggestCard.getValue()) {

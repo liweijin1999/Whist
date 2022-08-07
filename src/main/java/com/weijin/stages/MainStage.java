@@ -1,4 +1,4 @@
-package com.weijin;
+package com.weijin.stages;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;

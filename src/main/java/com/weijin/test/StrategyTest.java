@@ -123,7 +123,7 @@ public class StrategyTest {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         StrategyTest strategyTest = new StrategyTest();
         strategyTest.init();
-        for (int i = 1; i <= 50000; i++) {
+        for (int i = 1; i <= 10000; i++) {
             System.out.println("game " + i);
             strategyTest.testStrategy();
             System.out.println("winning rate: " + (double) strategyTest.winCount / (strategyTest.winCount + strategyTest.loseCount));

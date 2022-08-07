@@ -1,8 +1,8 @@
 package com.weijin.controllers;
 
-import com.weijin.AboutStage;
-import com.weijin.MainStage;
-import com.weijin.RuleStage;
+import com.weijin.stages.AboutStage;
+import com.weijin.stages.MainStage;
+import com.weijin.stages.RuleStage;
 import com.weijin.model.SettleScoreBoard;
 import com.weijin.model.WhistImpl;
 import com.weijin.singleton.FileLogger;
@@ -17,9 +17,6 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
-
-import static com.weijin.utils.helper.rankToSymbol;
-import static com.weijin.utils.helper.suitToSymbol;
 
 public class SettleStageController implements Initializable {
     public Label congratsLabel;

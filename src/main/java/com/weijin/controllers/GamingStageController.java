@@ -2,10 +2,10 @@ package com.weijin.controllers;
 
 import com.weijin.AIstrategy.*;
 import com.weijin.AIstrategy.Strategy;
-import com.weijin.AboutStage;
-import com.weijin.MainStage;
-import com.weijin.RuleStage;
-import com.weijin.SettleStage;
+import com.weijin.stages.AboutStage;
+import com.weijin.stages.MainStage;
+import com.weijin.stages.RuleStage;
+import com.weijin.stages.SettleStage;
 import com.weijin.javafxComponents.MyImageView;
 import com.weijin.model.*;
 import com.weijin.singleton.FileLogger;
@@ -24,8 +24,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -65,6 +63,7 @@ public class GamingStageController implements Initializable {
     public AnchorPane p1handPane;
     public ImageView avatar2, avatar3, avatar4;
     public Label tipLabel;
+    public MenuItem fullScreenItem;
     private HashMap<ImageView, Card> reviewHandMap = new HashMap<>(13);
 
     private HashMap<ImageView, Card> handMap = new HashMap<>(13);
@@ -548,17 +547,29 @@ public class GamingStageController implements Initializable {
         Player playerThisTurn = turnList.get(turnIndex);
         switch (difficulty) {
             case 1 -> {
-                strategy = new EasyStrategy();
+                if (playerThisTurn==playerList.get(2)){
+                    strategy=new MediumSrtategy();
+                }else {
+                    strategy = new EasyStrategy();
+                }
             }
             case 2 -> {
                 System.out.println("Medium");
 //                strategy = new MediumSrtategy();
-                strategy = new MediumSrtategy();
+                if (playerThisTurn==playerList.get(2)){
+                    strategy=new MediumSrtategy();
+                }else {
+                    strategy = new MediumSrtategy();
+                }
             }
             case 3 -> {
 //                strategy = new HardStrategy();
                 System.out.println("hard");
-                strategy = new HardStrategy();
+                if (playerThisTurn==playerList.get(2)){
+                    strategy=new MediumSrtategy();
+                }else {
+                    strategy = new HardStrategy();
+                }
             }
 
         }
@@ -785,6 +796,20 @@ public class GamingStageController implements Initializable {
         alert.show();
     }
 
+    public void setFullScreen(ActionEvent actionEvent) {
+                Stage stage = (Stage) playButton.getScene().getWindow();
+                stage.setFullScreen(true);
+                fullScreenItem.setText("Exit Full Screen");
+                fullScreenItem.onActionProperty().set(this::exitFullScreen);
+
+    }
+    public void exitFullScreen(ActionEvent actionEvent) {
+        Stage stage = (Stage) playButton.getScene().getWindow();
+        stage.setFullScreen(false);
+        fullScreenItem.setText("Enter Full Screen");
+        fullScreenItem.onActionProperty().set(this::setFullScreen);
+
+    }
     public void exit(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText("Exit?");

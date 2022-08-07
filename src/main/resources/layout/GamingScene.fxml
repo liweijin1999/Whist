@@ -52,6 +52,7 @@
     <MenuBar GridPane.columnSpan="7" GridPane.rowIndex="0">
         <Menu text="Menu">
             <MenuItem onAction="#newGameClick" text="New Game" />
+            <MenuItem fx:id="fullScreenItem" onAction="#setFullScreen" text="Enter Full Screen" />
             <MenuItem onAction="#exit" text="Exit" />
         </Menu>
         <Menu text="Help">
