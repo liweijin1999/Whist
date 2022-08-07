@@ -566,12 +566,11 @@ public class GamingStageController implements Initializable {
 //                strategy = new HardStrategy();
                 System.out.println("hard");
                 if (playerThisTurn==playerList.get(2)){
-                    strategy=new MediumSrtategy();
+                    strategy=new HardStrategy();
                 }else {
                     strategy = new HardStrategy();
                 }
             }
-
         }
 
         assert strategy != null;
